@@ -1,0 +1,2 @@
+# AIStockTradingBot
+WARNING: using this software will probably lose you money.  The AIStockTradingBot will someday handle my Stock Trading Strategy while I am away.   The intention is to handling trades and save/analyzing price data based on algorithms.  Also providing actionable notifications.  Currently this is all based on the TD Ameritrade API but the long term intention is to provide this service to multiple account providers.  Also news and social media AI updates are very desired in time. 
