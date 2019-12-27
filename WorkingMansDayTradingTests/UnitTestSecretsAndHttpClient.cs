@@ -24,12 +24,6 @@ namespace WorkingMansDayTradingTests
         }
         IConfiguration Configuration { get; set; }
 
-        [TestMethod]
-        public void TestAsyncHttpClientReturnResponse()
-        {
-            var message = sampleHTTPClientCall.testHTTPClientCall();
-            Assert.IsNotNull(message);
-        }
 
         [TestMethod]
         public void TestCanGetSecreteRefreshToken()

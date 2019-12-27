@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AIStockTradingBotLogic\AIStockTradingBotLogic.csproj" />
     <ProjectReference Include="..\DataModels\DataModels.csproj" />
     <ProjectReference Include="..\MarketHistory\MarketHistory.csproj" />
     <ProjectReference Include="..\TD-API-Interface\TD-API-Interface.csproj" />
