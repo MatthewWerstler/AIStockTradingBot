@@ -1,6 +1,6 @@
 ﻿namespace AIStockTradingBotService
 {
-    partial class Service1
+    partial class AIStockTradingBotService
     {
         /// <summary> 
         /// Required designer variable.

@@ -27,7 +27,7 @@ namespace WorkingMansDayTradingTests.MarketHistory
             testingHttpClient.Dispose();
         }
 
-        public List<string> stockList = new List<string>(new string[] { "AMZN" });// "HRZN", "NRZ", "PSEC", "MAIN", "GOOD", "GAIN", "CIF", "EFC", "MSFT" });
+        public List<string> stockList = new List<string>(new string[] { "FE" });// "HRZN", "NRZ", "PSEC", "MAIN", "GOOD", "GAIN", "CIF", "EFC", "MSFT" });
 
         [TestMethod]
         public void testWritingMinuteStockPriceHistoryToJSONFiles()
