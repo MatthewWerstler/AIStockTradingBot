@@ -60,10 +60,16 @@ namespace TD_API_Interface.API_Calls
         }
 
 
-        //GET
-        //Get Watchlists for Multiple Accounts
-        //https://api.tdameritrade.com/v1/accounts/watchlists
-        //All watchlists for all of the user's linked accounts.
+
+        /// <summary>
+        /// Get All watchlists for all of the user's linked accounts 
+        /// </summary>
+        /// <param name="client">Client with oAuth header</param>
+        /// <returns>HttpResponseMessage</returns>
+        public static HttpResponseMessage getWishlistsForAllAccounts(HttpClient client)
+        {
+            return client.GetAsync("https://api.tdameritrade.com/v1/accounts/watchlists").Result;
+        }
 
         /// <summary>
         /// GET - Get Watchlists for Single Account (All watchlists of an account.)

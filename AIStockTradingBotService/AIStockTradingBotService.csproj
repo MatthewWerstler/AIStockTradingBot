@@ -56,9 +56,16 @@
     <Compile Include="Log.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegistrySettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ServiceNetStandardAdapter\ServiceNetStandardAdapter.csproj">
+      <Project>{8ace4e14-84ee-497b-b18f-b0d841ccc417}</Project>
+      <Name>ServiceNetStandardAdapter</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

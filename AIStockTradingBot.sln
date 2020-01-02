@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29609.76
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIStockTradingBotService", "AIStockTradingBotService\AIStockTradingBotService.csproj", "{99D29140-334A-4115-8EAF-3678EA0C9817}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataModels", "DataModels\DataModels.csproj", "{1BD5A047-198D-4524-9C7E-AE6D014F605E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TD-API-Interface", "TD-API-Interface\TD-API-Interface.csproj", "{0E0BAA91-594F-437B-99C0-A22F4FDABDCD}"
@@ -13,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarketHistory", "MarketHist
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkingMansDayTradingTests", "WorkingMansDayTradingTests\WorkingMansDayTradingTests.csproj", "{03F84266-636C-4EC9-BD6B-B4C513664FB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIStockTradingBotLogic", "AIStockTradingBotLogic\AIStockTradingBotLogic.csproj", "{00283484-D0CD-49F7-9D78-B90D163B6FB7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AIStockTradingBotLogic", "AIStockTradingBotLogic\AIStockTradingBotLogic.csproj", "{00283484-D0CD-49F7-9D78-B90D163B6FB7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIStockTradingConsole", "AIStockTradingConsole\AIStockTradingConsole.csproj", "{19084615-A5DE-4B77-B90D-B0C185ECBE03}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +21,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{99D29140-334A-4115-8EAF-3678EA0C9817}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{99D29140-334A-4115-8EAF-3678EA0C9817}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{99D29140-334A-4115-8EAF-3678EA0C9817}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{99D29140-334A-4115-8EAF-3678EA0C9817}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1BD5A047-198D-4524-9C7E-AE6D014F605E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1BD5A047-198D-4524-9C7E-AE6D014F605E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BD5A047-198D-4524-9C7E-AE6D014F605E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,6 +41,10 @@ Global
 		{00283484-D0CD-49F7-9D78-B90D163B6FB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00283484-D0CD-49F7-9D78-B90D163B6FB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{00283484-D0CD-49F7-9D78-B90D163B6FB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19084615-A5DE-4B77-B90D-B0C185ECBE03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19084615-A5DE-4B77-B90D-B0C185ECBE03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19084615-A5DE-4B77-B90D-B0C185ECBE03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19084615-A5DE-4B77-B90D-B0C185ECBE03}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

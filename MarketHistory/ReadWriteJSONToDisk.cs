@@ -67,5 +67,13 @@ namespace MarketHistory
             }
             return count;
         }
+
+        public static List<string> getListOfStocksWithHistory(string tradeDataPath)
+        {
+            List<string> returnSymbols = new List<string>();
+            foreach (string dir in Directory.GetDirectories($"{tradeDataPath}\\Price_History"))
+                returnSymbols.Add(new DirectoryInfo(dir).Name);
+            return returnSymbols;
+        }
     }
 }

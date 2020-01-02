@@ -43,6 +43,15 @@ namespace WorkingMansDayTradingTests.TDAmeritradeInterface
         }
 
         [TestMethod]
+        public void shouldBeAbleToGetWatchListsForAllAttachedAccounts()
+        {
+            var results = TD_API_Interface.API_Calls.WatchList.getWishlistsForAllAccounts(testingHttpClient.client);
+            var contents = results.Content.ReadAsStringAsync().Result;
+            var wishLists = new DataModels.AllWatchLists(contents);
+            Assert.IsTrue(wishLists.Lists.Count > 3);
+        }
+
+        [TestMethod]
         public void testGettingAnIndividualWatchListByID()
         {
             //In order to make this work I created a watchlist on my account on the standard site
