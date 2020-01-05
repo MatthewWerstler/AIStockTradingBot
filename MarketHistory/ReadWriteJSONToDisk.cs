@@ -38,8 +38,10 @@ namespace MarketHistory
 
         public static List<DataModels.QuoteFile> getQuotesFileListFromDirectory(string path)
         {
-            string[] files = Directory.GetFiles(path);
             List<DataModels.QuoteFile> quoteFiles = new List<DataModels.QuoteFile>();
+            if (!Directory.Exists(path))
+                return quoteFiles;
+            string[] files = Directory.GetFiles(path);
             foreach (string file in files)
             {
                 if(file.EndsWith(".json"))

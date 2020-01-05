@@ -60,7 +60,9 @@ namespace AIStockTradingConsole
             {
                 string storageFolderPath = StockHistory.getSymbolsPriceHistoryPath(tradeDataPath, symbol, "ByMinute");
                 List<QuoteFile> priceByMinuteFiles = ReadWriteJSONToDisk.getQuotesFileListFromDirectory(storageFolderPath);
-                DateTime MaxModDate = priceByMinuteFiles.Select(s => s.info.LastWriteTime).Max();
+                DateTime MaxModDate = new DateTime(0);
+                if (priceByMinuteFiles.Count() > 0)
+                    MaxModDate = priceByMinuteFiles.Select(s => s.info.LastWriteTime).Max();
                 if(DateTime.Now.AddDays(-1) > MaxModDate)
                 {
                     string newUpdatedFile = StockHistory.UpdateStockByMinuteHistoryFile(client, apiKey, symbol, tradeDataPath, true);

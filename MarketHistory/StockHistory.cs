@@ -147,7 +147,7 @@ namespace MarketHistory
         /// <returns>Path to save price quotes for specific stock</returns>
         public static string getSymbolsPriceHistoryPath(string dataTradeDataPath, string symbol, string QuoteFrequency)
         {
-            return $"{dataTradeDataPath}//Price_History//{symbol}//{QuoteFrequency}";
+            return $"{dataTradeDataPath}\\Price_History\\{symbol}\\{QuoteFrequency}";
         }
 
         /// <summary>
