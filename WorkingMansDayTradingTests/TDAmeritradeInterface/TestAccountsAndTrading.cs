@@ -39,5 +39,22 @@ namespace WorkingMansDayTradingTests.TDAmeritradeInterface
             contents = results.Content.ReadAsStringAsync().Result;
             Assert.IsNotNull(contents);
         }
+
+        [TestMethod]
+        public void ShouldBeAbleToPullOrderAndOrPositionsOnAllLinkedAccount()
+        {
+            var results = TD_API_Interface.API_Calls.AccountsAndTrading.getAccount(testingHttpClient.client, testingHttpClient.account01, "positions,orders");
+            Assert.IsTrue(results.StatusCode == System.Net.HttpStatusCode.OK);
+            var contents = results.Content.ReadAsStringAsync().Result;
+            Assert.IsNotNull(contents);
+            results = TD_API_Interface.API_Calls.AccountsAndTrading.getAccount(testingHttpClient.client, testingHttpClient.account01, "positions");
+            Assert.IsTrue(results.StatusCode == System.Net.HttpStatusCode.OK);
+            contents = results.Content.ReadAsStringAsync().Result;
+            Assert.IsNotNull(contents);
+            results = TD_API_Interface.API_Calls.AccountsAndTrading.getAccount(testingHttpClient.client, testingHttpClient.account01, "orders");
+            Assert.IsTrue(results.StatusCode == System.Net.HttpStatusCode.OK);
+            contents = results.Content.ReadAsStringAsync().Result;
+            Assert.IsNotNull(contents);
+        }
     }
 }

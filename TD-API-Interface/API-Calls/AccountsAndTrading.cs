@@ -92,15 +92,19 @@ namespace TD_API_Interface.API_Calls
         #endregion
         #region Accounts
 
-        //Method
-        //Description
 
-        //GET
-        //Get Account
-
-        //https://api.tdameritrade.com/v1/accounts/{accountId}
-        //Account balances, positions, and orders for a specific account.
-
+        /// <summary>
+        /// Account balances, positions, and orders for a specific account.
+        /// </summary>
+        /// <param name="client">httpClient with OAuth token</param>
+        /// <param name="accountId">Account Number as a string</param>
+        /// <param name="fields">Example:fields=positions,orders</param>
+        /// <returns>HttpResponseMessage return object</returns>
+        public static HttpResponseMessage getAccount(HttpClient client, string accountId, string fields)
+        {
+            string apiURL = $"https://api.tdameritrade.com/v1/accounts/{accountId}?fields={fields}";
+            return client.GetAsync(apiURL).Result;
+        }
 
 
         /// <summary>
@@ -110,7 +114,7 @@ namespace TD_API_Interface.API_Calls
         /// </summary>
         /// <param name="client">httpClient with OAuth token</param>
         /// <param name="fields">Example:fields=positions,orders</param>
-        /// <returns></returns>
+        /// <returns>HttpResponseMessage return object</returns>
         public static HttpResponseMessage getAccounts(HttpClient client, string fields)
         {
             string apiURL = $"https://api.tdameritrade.com/v1/accounts?fields={fields}";
