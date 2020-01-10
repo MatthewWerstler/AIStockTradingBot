@@ -23,6 +23,52 @@ namespace WorkingMansDayTradingTests.TDAmeritradeInterface
             testingHttpClient.Dispose();
         }
 
+        #region order test(s)
+        [TestMethod]
+        public void ShouldBeAbleToGetOrder()
+        {
+            var results = TD_API_Interface.API_Calls.AccountsAndTrading.getOrders(testingHttpClient.client, testingHttpClient.account01);
+            Assert.IsTrue(results.StatusCode == System.Net.HttpStatusCode.OK);
+            var contents = results.Content.ReadAsStringAsync().Result;
+            Assert.IsNotNull(contents);
+            results = TD_API_Interface.API_Calls.AccountsAndTrading.getOrders(testingHttpClient.client, testingHttpClient.account01, "FILLED");
+            Assert.IsTrue(results.StatusCode == System.Net.HttpStatusCode.OK);
+            contents = results.Content.ReadAsStringAsync().Result;
+            Assert.IsNotNull(contents);
+            results = TD_API_Interface.API_Calls.AccountsAndTrading.getOrders(testingHttpClient.client, testingHttpClient.account01, 2);
+            Assert.IsTrue(results.StatusCode == System.Net.HttpStatusCode.OK);
+            contents = results.Content.ReadAsStringAsync().Result;
+            Assert.IsNotNull(contents);
+            results = TD_API_Interface.API_Calls.AccountsAndTrading.getOrders(testingHttpClient.client, testingHttpClient.account01, "FILLED", 2);
+            Assert.IsTrue(results.StatusCode == System.Net.HttpStatusCode.OK);
+            contents = results.Content.ReadAsStringAsync().Result;
+            Assert.IsNotNull(contents);
+            results = TD_API_Interface.API_Calls.AccountsAndTrading.getOrders(testingHttpClient.client, testingHttpClient.account01, DateTime.Now.AddDays(-60), DateTime.Now);
+            Assert.IsTrue(results.StatusCode == System.Net.HttpStatusCode.OK);
+            contents = results.Content.ReadAsStringAsync().Result;
+            Assert.IsNotNull(contents);
+            results = TD_API_Interface.API_Calls.AccountsAndTrading.getOrders(testingHttpClient.client, testingHttpClient.account01, DateTime.Now.AddDays(-60), DateTime.Now, "FILLED");
+            Assert.IsTrue(results.StatusCode == System.Net.HttpStatusCode.OK);
+            contents = results.Content.ReadAsStringAsync().Result;
+            Assert.IsNotNull(contents);
+        }
+
+        #endregion
+
+        //sadly I do not understand the difference between and order and saved order - but that is why I write test while mapping a API
+        #region saved order test(s)
+        [TestMethod]
+        public void ShouldBeAbleToGetSavedOrders()
+        {
+            var results = TD_API_Interface.API_Calls.AccountsAndTrading.getSavedOrders(testingHttpClient.client, testingHttpClient.account01);
+            Assert.IsTrue(results.StatusCode == System.Net.HttpStatusCode.OK);
+            var contents = results.Content.ReadAsStringAsync().Result;
+            Assert.IsNotNull(contents);
+        }
+
+        #endregion
+
+        #region Accounts Test
         [TestMethod]
         public void ShouldBeAbleToPullOrderAndOrPositionsOnAllLinkedAccounts()
         {
@@ -56,5 +102,7 @@ namespace WorkingMansDayTradingTests.TDAmeritradeInterface
             contents = results.Content.ReadAsStringAsync().Result;
             Assert.IsNotNull(contents);
         }
+
+        #endregion 
     }
 }
