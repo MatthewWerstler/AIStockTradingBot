@@ -17,50 +17,10 @@ namespace TD_API_Interface.API_Calls
 
         //DELETE
         //Cancel Order
-
         //https://api.tdameritrade.com/v1/accounts/{accountId}/orders/{orderId}
         //Cancel a specific order for a specific account.
 
-        //GET
-        //Get Order
-
-        //https://api.tdameritrade.com/v1/accounts/{accountId}/orders/{orderId}
-        //Get a specific order for a specific account.
-
-        //GET
-        //
-        //Query Parameters
-        //Name   
-        // Description
-        //maxResults        
-        //  The maximum number of orders to retrieve.
-        //fromEnteredTime
-        //  Specifies that no orders entered before this time should be returned. Valid ISO-8601 formats are :
-        //  yyyy-MM-dd and yyyy-MM-dd'T'HH:mm:ssz Date must be within 60 days from today's date. 'toEnteredTime' must also be set.
-        //toEnteredTime
-        //  Specifies that no orders entered after this time should be returned.Valid ISO-8601 formats are :
-        //  yyyy-MM-dd and yyyy-MM-dd'T'HH:mm:ssz. 'fromEnteredTime' must also be set.
-        //status
-        //  Specifies that only orders of this status should be returned.
-        /*
-                                <option value="">(no value)</option>
-                                <option value="AWAITING_PARENT_ORDER">AWAITING_PARENT_ORDER</option>
-                                <option value="AWAITING_CONDITION">AWAITING_CONDITION</option>
-                                <option value="AWAITING_MANUAL_REVIEW">AWAITING_MANUAL_REVIEW</option>
-                                <option value="ACCEPTED">ACCEPTED</option>
-                                <option value="AWAITING_UR_OUT">AWAITING_UR_OUT</option>
-                                <option value="PENDING_ACTIVATION">PENDING_ACTIVATION</option>
-                                <option value="QUEUED">QUEUED</option>
-                                <option value="WORKING">WORKING</option>
-                                <option value="REJECTED">REJECTED</option>
-                                <option value="PENDING_CANCEL">PENDING_CANCEL</option>
-                                <option value="CANCELED">CANCELED</option>
-                                <option value="PENDING_REPLACE">PENDING_REPLACE</option>
-                                <option value="REPLACED">REPLACED</option>
-                                <option value="FILLED">FILLED</option>
-                                <option value="EXPIRED">EXPIRED</option>
-        */
-        //ends Query Parameters
+        
         /// <summary>
         /// Get Orders By Path - Orders for a specific account.
         /// </summary>
@@ -157,19 +117,16 @@ namespace TD_API_Interface.API_Calls
 
         //GET
         //Get Orders By Query
-
         //https://api.tdameritrade.com/v1/orders
         //All orders for a specific account or, if account ID isn't specified, orders will be returned for all linked accounts
 
         //POST
         //Place Order
-
         //https://api.tdameritrade.com/v1/accounts/{accountId}/orders
         //Place an order for a specific account.
 
         //PUT
         //Replace Order
-
         //https://api.tdameritrade.com/v1/accounts/{accountId}/orders/{orderId}
         //Replace an existing order for an account.The existing order will be replaced by the new order.Once replaced, the old order will be canceled and a new order will be created.
 
@@ -195,7 +152,7 @@ namespace TD_API_Interface.API_Calls
         /// <param name="accountId">Account number as string</param>
         /// <param name="savedOrderId">Saved Order ID</param>
         /// <returns></returns>
-        public static HttpResponseMessage getSavedOrders(HttpClient client, string accountId, string savedOrderId)
+        public static HttpResponseMessage getSavedOrder(HttpClient client, string accountId, string savedOrderId)
         {
         string apiURL = $"https://api.tdameritrade.com/v1/accounts/{accountId}/savedorders/{savedOrderId}";
         return client.GetAsync(apiURL).Result;

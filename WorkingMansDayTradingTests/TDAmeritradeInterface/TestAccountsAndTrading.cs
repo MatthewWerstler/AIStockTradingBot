@@ -5,6 +5,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TD_API_Interface;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using Newtonsoft.Json;
+using System.Linq;
+using System.Collections;
 
 namespace WorkingMansDayTradingTests.TDAmeritradeInterface
 {
@@ -63,6 +66,13 @@ namespace WorkingMansDayTradingTests.TDAmeritradeInterface
             var results = TD_API_Interface.API_Calls.AccountsAndTrading.getSavedOrders(testingHttpClient.client, testingHttpClient.account01);
             Assert.IsTrue(results.StatusCode == System.Net.HttpStatusCode.OK);
             var contents = results.Content.ReadAsStringAsync().Result;
+            Assert.IsNotNull(contents);
+            dynamic data = JsonConvert.DeserializeObject(contents);
+            string savedOrderId = ((IEnumerable)data).Cast<dynamic>().Select(s => s.savedOrderId).First();
+            Assert.IsNotNull(savedOrderId);
+            results = TD_API_Interface.API_Calls.AccountsAndTrading.getSavedOrder(testingHttpClient.client, testingHttpClient.account01, savedOrderId);
+            Assert.IsTrue(results.StatusCode == System.Net.HttpStatusCode.OK);
+            contents = results.Content.ReadAsStringAsync().Result;
             Assert.IsNotNull(contents);
         }
 
