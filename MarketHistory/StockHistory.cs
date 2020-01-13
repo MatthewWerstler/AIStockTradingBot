@@ -70,15 +70,22 @@ namespace MarketHistory
             var contents = results.Content.ReadAsStringAsync().Result;
             dynamic data = JsonConvert.DeserializeObject(contents);
             dynamic candlesData = data.candles;
-            //Check save location
-            string storageFolderPath = getSymbolsPriceHistoryPath(historyPath, symbol, "ByMinute");
-            ReadWriteJSONToDisk.testCreateDirectory(storageFolderPath);
-            //Gather Start and End Date
-            string quoteFileName = getFileNameForPriceHistory(candlesData, true);
-            string saveFilePath = $"{storageFolderPath}\\{quoteFileName}";
-            //save File
-            ReadWriteJSONToDisk.writeDataAsJSON(saveFilePath, candlesData);
-            return saveFilePath;
+            if(candlesData.Count > 0)
+            { 
+                //Check save location
+                string storageFolderPath = getSymbolsPriceHistoryPath(historyPath, symbol, "ByMinute");
+                ReadWriteJSONToDisk.testCreateDirectory(storageFolderPath);
+                //Gather Start and End Date
+                string quoteFileName = getFileNameForPriceHistory(candlesData, true);
+                string saveFilePath = $"{storageFolderPath}\\{quoteFileName}";
+                //save File
+                ReadWriteJSONToDisk.writeDataAsJSON(saveFilePath, candlesData);
+                return saveFilePath;
+            }
+            else
+            {
+                return "No data returned";
+            }
         }
 
         /// <summary>
@@ -96,15 +103,22 @@ namespace MarketHistory
             var contents = results.Content.ReadAsStringAsync().Result;
             dynamic data = JsonConvert.DeserializeObject(contents);
             dynamic candlesData = data.candles;
-            //Check save location
-            string storageFolderPath = getSymbolsPriceHistoryPath(historyPath, symbol, "ByDay"); 
-            ReadWriteJSONToDisk.testCreateDirectory(storageFolderPath);
-            //Gather Start and End Date
-            string quoteFileName = getFileNameForPriceHistory(candlesData, false);
-            string saveFilePath = $"{storageFolderPath}//{quoteFileName}";
-            //save File
-            ReadWriteJSONToDisk.writeDataAsJSON(saveFilePath, candlesData);
-            return saveFilePath;
+            if (candlesData.Count > 0)
+            {
+                //Check save location
+                string storageFolderPath = getSymbolsPriceHistoryPath(historyPath, symbol, "ByDay");
+                ReadWriteJSONToDisk.testCreateDirectory(storageFolderPath);
+                //Gather Start and End Date
+                string quoteFileName = getFileNameForPriceHistory(candlesData, false);
+                string saveFilePath = $"{storageFolderPath}//{quoteFileName}";
+                //save File
+                ReadWriteJSONToDisk.writeDataAsJSON(saveFilePath, candlesData);
+                return saveFilePath;
+            }
+            else
+            {
+                return "No data returned";
+            }
         }
         #endregion //"Gather Stock Price History From API"
 
