@@ -115,10 +115,101 @@ namespace TD_API_Interface.API_Calls
             return client.GetAsync(apiURL).Result;
         }
 
+
+
         //GET
         //Get Orders By Query
         //https://api.tdameritrade.com/v1/orders
         //All orders for a specific account or, if account ID isn't specified, orders will be returned for all linked accounts
+
+        /// <summary>
+        /// Get Orders By Path - Orders for a all linked accounts.
+        /// </summary>
+        /// <param name="client">httpClient with oAuth</param>
+        /// <returns>TD API HttpResponseMessage</returns>
+        public static HttpResponseMessage getOrdersAllAccounts(HttpClient client)//, int maxResults, DateTime fromEnteredTime, DateTime toEnteredTime, string status)
+        {
+            string apiURL = $"https://api.tdameritrade.com/v1/orders";
+            return client.GetAsync(apiURL).Result;
+        }
+        /// <summary>
+        /// Get Orders By Path - Orders for a all linked accounts.
+        /// </summary>
+        /// <param name="client">httpClient with oAuth</param>
+        /// <param name="maxResults">Sets a max number of results to be returned</param>
+        /// <returns>TD API HttpResponseMessage</returns>
+        public static HttpResponseMessage getOrdersAllAccounts(HttpClient client,  int maxResults)
+        {
+            string apiURL = $"https://api.tdameritrade.com/v1/orders?maxResults={maxResults.ToString()}";
+            return client.GetAsync(apiURL).Result;
+        }
+
+        /// <summary>
+        /// Get Orders By Path - Orders for a all linked accounts.
+        /// </summary>
+        /// <param name="client">httpClient with oAuth</param>
+        /// <param name="status">Specifies that only orders of this status should be returned.
+        ///   acceptable values = "", AWAITING_PARENT_ORDER, AWAITING_CONDITION, AWAITING_MANUAL_REVIEW, ACCEPTED, AWAITING_UR_OUT, 
+        ///     PENDING_ACTIVATION, QUEUED, WORKING, REJECTED, PENDING_CANCEL, CANCELED, PENDING_REPLACE, REPLACED, FILLED, EXPIRED
+        /// </param>
+        /// <returns>TD API HttpResponseMessage</returns>
+        public static HttpResponseMessage getOrdersAllAccounts(HttpClient client, string status)//, int maxResults, DateTime fromEnteredTime, DateTime toEnteredTime, string status)
+        {
+            string apiURL = $"https://api.tdameritrade.com/v1/orders?status={status}";
+            return client.GetAsync(apiURL).Result;
+        }
+
+        /// <summary>
+        /// Get Orders By Path - Orders for a all linked accounts.
+        /// </summary>
+        /// <param name="client">httpClient with oAuth</param>
+        /// <param name="status">Specifies that only orders of this status should be returned.
+        ///   acceptable values = "", AWAITING_PARENT_ORDER, AWAITING_CONDITION, AWAITING_MANUAL_REVIEW, ACCEPTED, AWAITING_UR_OUT, 
+        ///     PENDING_ACTIVATION, QUEUED, WORKING, REJECTED, PENDING_CANCEL, CANCELED, PENDING_REPLACE, REPLACED, FILLED, EXPIRED
+        /// </param>
+        /// <param name="maxResults">Sets a max number of results to be returned</param>
+        /// <returns>TD API HttpResponseMessage</returns>
+        public static HttpResponseMessage getOrdersAllAccounts(HttpClient client, string status, int maxResults)//, DateTime fromEnteredTime, DateTime toEnteredTime, string status)
+        {
+            string apiURL = $"https://api.tdameritrade.com/v1/orders?status={status}&maxResults={maxResults.ToString()}";
+            return client.GetAsync(apiURL).Result;
+        }
+
+        /// <summary>
+        /// Get Orders By Path - Orders for a all linked accounts.
+        /// </summary>
+        /// <param name="client">httpClient with oAuth</param>
+        /// <param name="fromEnteredTime">Specifies that no orders entered before this time should be returned. Valid ISO-8601 formats are :
+        ///  yyyy-MM-dd and yyyy-MM-dd'T'HH:mm:ssz Date must be within 60 days from today's date. 'toEnteredTime' must also be set.</param>
+        /// <param name="toEnteredTime">Specifies that no orders entered after this time should be returned.Valid ISO-8601 formats are :
+        ///  yyyy-MM-dd and yyyy-MM-dd'T'HH:mm:ssz. 'fromEnteredTime' must also be set.</param>
+        /// <returns>TD API HttpResponseMessage</returns>
+        public static HttpResponseMessage getOrdersAllAccounts(HttpClient client,  DateTime fromEnteredTime, DateTime toEnteredTime)//, int maxResults, DateTime fromEnteredTime, DateTime toEnteredTime)
+        {
+            string apiURL = $"https://api.tdameritrade.com/v1/orders?fromEnteredTime={fromEnteredTime.ToString("yyyy-MM-dd")}&toEnteredTime={toEnteredTime.ToString("yyyy-MM-dd")}";
+            return client.GetAsync(apiURL).Result;
+        }
+
+        /// <summary>
+        /// Get Orders By Path - Orders for a all linked accounts.
+        /// </summary>
+        /// <param name="client">httpClient with oAuth</param>
+        /// <param name="fromEnteredTime">Specifies that no orders entered before this time should be returned. Valid ISO-8601 formats are :
+        ///  yyyy-MM-dd and yyyy-MM-dd'T'HH:mm:ssz Date must be within 60 days from today's date. 'toEnteredTime' must also be set.</param>
+        /// <param name="toEnteredTime">Specifies that no orders entered after this time should be returned.Valid ISO-8601 formats are :
+        ///  yyyy-MM-dd and yyyy-MM-dd'T'HH:mm:ssz. 'fromEnteredTime' must also be set.</param>
+        /// <param name="status">Specifies that only orders of this status should be returned.
+        ///   acceptable values = "", AWAITING_PARENT_ORDER, AWAITING_CONDITION, AWAITING_MANUAL_REVIEW, ACCEPTED, AWAITING_UR_OUT, 
+        ///     PENDING_ACTIVATION, QUEUED, WORKING, REJECTED, PENDING_CANCEL, CANCELED, PENDING_REPLACE, REPLACED, FILLED, EXPIRED
+        /// </param>
+        /// <returns>TD API HttpResponseMessage</returns>
+        public static HttpResponseMessage getOrdersAllAccounts(HttpClient client, DateTime fromEnteredTime, DateTime toEnteredTime, string status)//, int maxResults, DateTime fromEnteredTime, DateTime toEnteredTime, string status)
+        {
+            string apiURL = $"https://api.tdameritrade.com/v1/orders?status={status}&fromEnteredTime={fromEnteredTime.ToString("yyyy-MM-dd")}&toEnteredTime={toEnteredTime.ToString("yyyy-MM-dd")}";
+            return client.GetAsync(apiURL).Result;
+        }
+
+
 
         //POST
         //Place Order

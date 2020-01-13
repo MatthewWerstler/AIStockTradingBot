@@ -56,6 +56,35 @@ namespace WorkingMansDayTradingTests.TDAmeritradeInterface
             Assert.IsNotNull(contents);
         }
 
+        [TestMethod]
+        public void ShouldBeAbleToGetOrdersForAllLinkedAccounts()
+        {
+            var results = TD_API_Interface.API_Calls.AccountsAndTrading.getOrdersAllAccounts(testingHttpClient.client);
+            Assert.IsTrue(results.StatusCode == System.Net.HttpStatusCode.OK);
+            var contents = results.Content.ReadAsStringAsync().Result;
+            Assert.IsNotNull(contents);
+            results = TD_API_Interface.API_Calls.AccountsAndTrading.getOrdersAllAccounts(testingHttpClient.client, "FILLED");
+            Assert.IsTrue(results.StatusCode == System.Net.HttpStatusCode.OK);
+            contents = results.Content.ReadAsStringAsync().Result;
+            Assert.IsNotNull(contents);
+            results = TD_API_Interface.API_Calls.AccountsAndTrading.getOrdersAllAccounts(testingHttpClient.client, 2);
+            Assert.IsTrue(results.StatusCode == System.Net.HttpStatusCode.OK);
+            contents = results.Content.ReadAsStringAsync().Result;
+            Assert.IsNotNull(contents);
+            results = TD_API_Interface.API_Calls.AccountsAndTrading.getOrdersAllAccounts(testingHttpClient.client, "FILLED", 2);
+            Assert.IsTrue(results.StatusCode == System.Net.HttpStatusCode.OK);
+            contents = results.Content.ReadAsStringAsync().Result;
+            Assert.IsNotNull(contents);
+            results = TD_API_Interface.API_Calls.AccountsAndTrading.getOrdersAllAccounts(testingHttpClient.client, DateTime.Now.AddDays(-60), DateTime.Now);
+            Assert.IsTrue(results.StatusCode == System.Net.HttpStatusCode.OK);
+            contents = results.Content.ReadAsStringAsync().Result;
+            Assert.IsNotNull(contents);
+            results = TD_API_Interface.API_Calls.AccountsAndTrading.getOrdersAllAccounts(testingHttpClient.client, DateTime.Now.AddDays(-60), DateTime.Now, "FILLED");
+            Assert.IsTrue(results.StatusCode == System.Net.HttpStatusCode.OK);
+            contents = results.Content.ReadAsStringAsync().Result;
+            Assert.IsNotNull(contents);
+        }
+
         #endregion
 
         //sadly I do not understand the difference between and order and saved order - but that is why I write test while mapping a API
