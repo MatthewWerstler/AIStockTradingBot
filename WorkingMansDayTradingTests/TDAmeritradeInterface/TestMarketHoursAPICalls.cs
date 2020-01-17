@@ -26,7 +26,7 @@ namespace WorkingMansDayTradingTests.TDAmeritradeInterface
         [TestMethod]
         public void ShouldBeAbleToRetrieveMarketHours()
         {
-            var results = TD_API_Interface.API_Calls.MarketHours.getHoursForMarket(testingHttpClient.client, "BOND", DateTime.Now);
+            var results = TD_API_Interface.API_Calls.MarketHours.getHoursForMarket(testingHttpClient.client, "EQUITY", DateTime.Now);
             Assert.IsTrue(results.StatusCode == System.Net.HttpStatusCode.OK);
             var contents = results.Content.ReadAsStringAsync().Result;
             Assert.IsTrue(contents.Length > 2);
