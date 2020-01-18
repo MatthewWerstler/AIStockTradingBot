@@ -13,6 +13,8 @@ namespace AIStockTradingConsole
     {
         public static void Main(string[] args)
         {
+
+
             var StartTime = DateTime.Now;
             Console.WriteLine($"StartTime {StartTime.ToString()}");
 
@@ -23,7 +25,13 @@ namespace AIStockTradingConsole
             string apiKey = Configuration["Consumer_Key"];
             string _account01 = Configuration["Account01"];
             string tradeDataPath = Configuration["TradingDataPath"];
+            string alpha_vantage_key = Configuration["alpha_vantage_key"];
             Log.write($"settings built");
+
+
+            //TestAvapi
+            AIStockTradingConsole.Example.Test(alpha_vantage_key);
+
 
             //Get HttpClient
             var client = new HttpClient();
