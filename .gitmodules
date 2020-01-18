@@ -1,0 +1,4 @@
+[submodule "SubModules/Avapi"]
+	path = SubModules/Avapi
+	url = https://github.com/AvapiDotNet/Avapi.git
+	branch = master
