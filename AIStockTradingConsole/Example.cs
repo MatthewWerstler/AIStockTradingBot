@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using Avapi.AvapiTIME_SERIES_DAILY;
+using Avapi.AvapiTIME_SERIES_INTRADAY;
 using Avapi;
 
 namespace AIStockTradingConsole
@@ -56,6 +57,33 @@ namespace AIStockTradingConsole
                     Console.WriteLine("========================");
                 }
             }
+        }
+
+        public static void TestTimeByMinutes(string Api_Key)
+        {
+            AvapiConnection connection = AvapiConnection.Instance;
+
+            // Set up the connection and pass the API_KEY provided by alphavantage.co
+            connection.Connect(Api_Key);
+
+            // Get the  query object
+            Int_TIME_SERIES_INTRADAY intraday_series =
+                connection.GetQueryObject_TIME_SERIES_INTRADAY();
+
+
+            // Get the TIME_SERIES_DAILY query object
+            //Int_TIME_SERIES_DAILY time_series_daily =
+            //    connection.GetQueryObject_TIME_SERIES_DAILY();
+
+            // Perform the  request and get the result
+            IAvapiResponse_TIME_SERIES_INTRADAY time_series_IntradayResponse =
+                intraday_series.Query("EFC", Const_TIME_SERIES_INTRADAY.TIME_SERIES_INTRADAY_interval.n_1min, Const_TIME_SERIES_INTRADAY.TIME_SERIES_INTRADAY_outputsize.full);
+
+            
+
+            // Printout the results
+            Console.WriteLine("******** Minute Data Pulled ********");
+            
         }
     }
 }

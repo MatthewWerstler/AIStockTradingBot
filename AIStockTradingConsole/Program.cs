@@ -30,6 +30,7 @@ namespace AIStockTradingConsole
 
 
             //TestAvapi
+            Example.TestTimeByMinutes(alpha_vantage_key);
             AIStockTradingConsole.Example.Test(alpha_vantage_key);
 
 
