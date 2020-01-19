@@ -16,13 +16,32 @@ namespace AIStockTradingConsole
             var StartTime = DateTime.Now;
             Console.WriteLine($"StartTime {StartTime.ToString()}");
 
-            //Get Secrete
+            //Get Secretes
             var builder = new ConfigurationBuilder()
                             .AddUserSecrets<Program>();
             IConfiguration Configuration = builder.Build();
             string apiKey = Configuration["Consumer_Key"];
             string _account01 = Configuration["Account01"];
             string tradeDataPath = Configuration["TradingDataPath"];
+            List<DataModels.Account> accounts = new List<Account>();
+            //Create Account Objects
+            bool boolBreak = false;
+            int i = 0;
+            do
+            {
+                var number = Configuration[$"Accounts:{i}:Number"];
+                if (string.IsNullOrWhiteSpace(number))
+                { 
+                    boolBreak = true;
+                    break;
+                }
+                var isActivelyTrading = Configuration[$"Accounts:{i}:isActivelyTrading"];
+                Account thisAccount = new Account(number);
+                thisAccount.isActivelyTrading = isActivelyTrading.ToLower() == "true"?true:false;
+                accounts.Add(thisAccount);
+                i++;
+            }
+            while (!boolBreak);
             Log.write($"settings built");
 
             //Get HttpClient
@@ -30,8 +49,18 @@ namespace AIStockTradingConsole
             getAndSetAuthToken(client, Configuration["refresh_token"], apiKey);
             Log.write($"HttpClient OAuth set");
 
+            //Hydrate Accounts 
+            foreach (Account act in accounts)
+            { 
+                AIStockTradingBotLogic.AccountHydrate.getWishLists(client, act);
+                MarketHistory.ReadWriteJSONToDisk.writeDataAsJSON($"{tradeDataPath}\\{act.AccountId}.json", act);
+                delay(475);
+            }
+
+            Sessionhours EquitySessionHours = AIStockTradingBotLogic.Market.getEquityMarketHours(client, DateTime.Now);
             //Get Watch lists
             var allWatchLists = AIStockTradingBotLogic.Watchlists.GetAllWatchLists(client);
+            delay(475);
 
             //looping timing variables
             DateTime lastExecutionOfMinuteData = DateTime.Now.AddHours(-8);
@@ -43,7 +72,7 @@ namespace AIStockTradingConsole
             //TODO Check Currently Trading stocks list
 
             //Saving data really only needs to happen once a day
-            lastExecutionOfMinuteData = getByMinuteUpdate(client, apiKey, tradeDataPath, allWatchLists);
+            lastExecutionOfMinuteData = updateAllTrackedSymbolsData(client, apiKey, tradeDataPath, allWatchLists);
 
 
             Log.write($"EndTime {DateTime.Now.ToString()}");
@@ -68,7 +97,7 @@ namespace AIStockTradingConsole
             while (i == 0) { };
         }
 
-        private static DateTime getByMinuteUpdate(HttpClient client, string apiKey, string tradeDataPath, DataModels.AllWatchLists allWatchLists)
+        private static DateTime updateAllTrackedSymbolsData(HttpClient client, string apiKey, string tradeDataPath, DataModels.AllWatchLists allWatchLists)
         {
 
             List<string> watchSymbols = new List<string>();
@@ -96,9 +125,18 @@ namespace AIStockTradingConsole
             }
             Console.WriteLine("");
 
-            foreach (string symbol in watchSymbols.Where(s => !TrackedStockSymbols.Contains(s)))
+            List<string> newSymbolsToTrack = watchSymbols.Where(s => !TrackedStockSymbols.Contains(s)).ToList();
+
+            StoreNewSymbolsByMinuteData(client, apiKey, tradeDataPath, newSymbolsToTrack);
+
+            return DateTime.Now;
+        }
+
+        public static void StoreNewSymbolsByMinuteData(HttpClient client, string apiKey, string tradeDataPath, List<string> symbols)
+        {
+            foreach (string symbol in symbols)
             {
-                Log.write($"Processing {symbol}");
+                Log.write($"Updating Market Hours for Symbols {symbol}");
                 try
                 {
                     string newStockPath = StockHistory.Gather10daysByTheMinute(client, apiKey, symbol, tradeDataPath);
@@ -108,11 +146,15 @@ namespace AIStockTradingConsole
                 {
                     Log.write(ex);
                 }
-                delay(450);
+                delay(250);
             }
+        }
 
+        public static void UpdateTrackedSymbolsMyMinuteData(HttpClient client, string apiKey, string tradeDataPath, List<string> TrackedStockSymbols)
+        { 
             foreach (string symbol in TrackedStockSymbols)
             {
+                Log.write($"Updating Market Hours for Symbols {symbol}");
                 string storageFolderPath = StockHistory.getSymbolsPriceHistoryPath(tradeDataPath, symbol, "ByMinute");
                 List<QuoteFile> priceByMinuteFiles = ReadWriteJSONToDisk.getQuotesFileListFromDirectory(storageFolderPath);
                 DateTime MaxModDate = new DateTime(0);
@@ -121,11 +163,10 @@ namespace AIStockTradingConsole
                 if (DateTime.Now.AddDays(-1) > MaxModDate)
                 {
                     string newUpdatedFile = StockHistory.UpdateStockByMinuteHistoryFile(client, apiKey, symbol, tradeDataPath, true);
-                    Log.write($"{DateTime.Now.ToString()} symbol By Minute updated {newUpdatedFile}");
-                    delay(450);
+                    Log.write($"Symbol By Minute updated {newUpdatedFile}");
+                    delay(250);
                 }
             }
-            return DateTime.Now;
         }
     }
 }
