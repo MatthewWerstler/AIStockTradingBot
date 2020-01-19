@@ -27,8 +27,22 @@ namespace WorkingMansDayTradingTests.Logic
         [TestMethod]
         public void ShouldBeAbleToReturnMarketHoursAsAnObject()
         {
+            DateTime dt = DateTime.Parse("1/22/2020 10:00");//in market
+            Sessionhours hours = Market.getEquityMarketHours(testingHttpClient.client, dt);
+            Assert.IsNotNull(hours.postMarket);
+        }
+
+        [TestMethod]
+        public void ShouldBeAbleToFigureOutTheCurrentSession()
+        {
             Sessionhours hours = Market.getEquityMarketHours(testingHttpClient.client, DateTime.Now);
-            Assert.IsNotNull(hours.postMarket);           
+            string currentSession = Market.currentSession(hours, DateTime.Now);
+            List<string> sessions = new List<string> { "preMarket", "regularMarket", "postMarket", "outsideMarket", "resetSession","nonMarketDay"};
+            Assert.IsTrue(sessions.Contains(currentSession));
+            DateTime dt = DateTime.Parse("1/22/2020 10:00");//in market
+            hours = Market.getEquityMarketHours(testingHttpClient.client, dt);
+            currentSession = Market.currentSession(hours, dt);
+            Assert.IsTrue(currentSession == "regularMarket");
         }
     }
 }
