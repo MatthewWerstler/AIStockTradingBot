@@ -13,67 +13,26 @@ namespace AIStockTradingConsole
     {
         public static void Main(string[] args)
         {
-            var StartTime = DateTime.Now;
-            Console.WriteLine($"StartTime {StartTime.ToString()}");
-
-            //Get Secretes
-            var builder = new ConfigurationBuilder()
-                            .AddUserSecrets<Program>();
-            IConfiguration Configuration = builder.Build();
-            string apiKey = Configuration["Consumer_Key"];
-            string _account01 = Configuration["Account01"];
-            string tradeDataPath = Configuration["TradingDataPath"];
-            List<DataModels.Account> accounts = new List<Account>();
-            //Create Account Objects
-            bool boolBreak = false;
-            int i = 0;
-            do
-            {
-                var number = Configuration[$"Accounts:{i}:Number"];
-                if (string.IsNullOrWhiteSpace(number))
-                { 
-                    boolBreak = true;
-                    break;
-                }
-                var isActivelyTrading = Configuration[$"Accounts:{i}:isActivelyTrading"];
-                Account thisAccount = new Account(number);
-                thisAccount.isActivelyTrading = isActivelyTrading.ToLower() == "true"?true:false;
-                accounts.Add(thisAccount);
-                i++;
-            }
-            while (!boolBreak);
-            Log.write($"settings built");
-
-            //Get HttpClient
-            var client = new HttpClient();
-            getAndSetAuthToken(client, Configuration["refresh_token"], apiKey);
-            Log.write($"HttpClient OAuth set");
-
-            //Hydrate Accounts 
-            foreach (Account act in accounts)
-            { 
-                AIStockTradingBotLogic.AccountHydrate.getWishLists(client, act);
-                MarketHistory.ReadWriteJSONToDisk.writeDataAsJSON($"{tradeDataPath}\\{act.AccountId}.json", act);
-                delay(475);
-            }
-
-            Sessionhours EquitySessionHours = AIStockTradingBotLogic.Market.getEquityMarketHours(client, DateTime.Now);
-            //Get Watch lists
-            var allWatchLists = AIStockTradingBotLogic.Watchlists.GetAllWatchLists(client);
+            //Load up all the setting and operating parameters
+            ConsoleRunningParameters cmdParams = new ConsoleRunningParameters();
             delay(475);
 
-            //looping timing variables
+            //Get Watch lists
+            var allWatchLists = AIStockTradingBotLogic.Watchlists.GetAllWatchLists(cmdParams.client);
+            delay(475);
+
+            ////looping timing variables
             DateTime lastExecutionOfMinuteData = DateTime.Now.AddHours(-8);
+            
+            //Saving data really only needs to happen once a day
+            lastExecutionOfMinuteData = updateAllTrackedSymbolsData(cmdParams.client, cmdParams.apiKey, cmdParams.tradeDataPath, allWatchLists);
+
 
             //-----looping section-----
-            
+
             //often Call
             //TODO Check For Trades
             //TODO Check Currently Trading stocks list
-
-            //Saving data really only needs to happen once a day
-            lastExecutionOfMinuteData = updateAllTrackedSymbolsData(client, apiKey, tradeDataPath, allWatchLists);
-
 
             Log.write($"EndTime {DateTime.Now.ToString()}");
 
