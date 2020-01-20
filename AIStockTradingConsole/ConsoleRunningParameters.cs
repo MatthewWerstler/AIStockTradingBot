@@ -50,7 +50,7 @@ namespace AIStockTradingConsole
             apiKey = Configuration["Consumer_Key"];
             //string _account01 = Configuration["Account01"];
             tradeDataPath = Configuration["TradingDataPath"];
-            //List<DataModels.Account> accounts = new List<Account>();
+            accounts = new List<Account>();
             //Create Account Objects
             bool boolBreak = false;
             int i = 0;
