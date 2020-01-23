@@ -16,6 +16,7 @@ namespace AIStockTradingConsole
         public string apiKey { get; set; }
         public string tradeDataPath { get; set; }
         public DateTime StartTime { get; set; }
+        public DateTime SavedAllByMinuteData { get; set; }
 
         public List<DataModels.Account> accounts { get; set; }
 
@@ -82,6 +83,7 @@ namespace AIStockTradingConsole
                 AIStockTradingBotLogic.AccountHydrate.getWishLists(client, act);
                 MarketHistory.ReadWriteJSONToDisk.writeDataAsJSON($"{tradeDataPath}\\{act.AccountId}.json", act);
             }
+
         }
         public static void getAndSetAuthToken(System.Net.Http.HttpClient client, string refresh_token, string Consumer_Key)
         {

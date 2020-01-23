@@ -15,20 +15,16 @@ namespace AIStockTradingConsole
         {
             //Load up all the setting and operating parameters
             ConsoleRunningParameters cmdParams = new ConsoleRunningParameters();
-            Ultility.delay(475);
+            Ultility.delay(250);
 
             //Get Watch lists
             var allWatchLists = AIStockTradingBotLogic.Watchlists.GetAllWatchLists(cmdParams.client);
-            Ultility.delay(475);
-
-            ////looping timing variables
-            DateTime lastExecutionOfMinuteData = DateTime.Now.AddHours(-8);
-            
+                        
             //Saving data really only needs to happen once a day
-            lastExecutionOfMinuteData = RecordingMinuteHistory.updateAllTrackedSymbolsData(cmdParams.client, cmdParams.apiKey, cmdParams.tradeDataPath, allWatchLists);
+            cmdParams.SavedAllByMinuteData = RecordingMinuteHistory.updateAllTrackedSymbolsData(cmdParams, allWatchLists);
 
 
-            //-----looping section-----
+            //-----looping section-----  "preMarket", "regularMarket", "postMarket", "outsideMarket"
 
             //often Call
             //TODO Check For Trades

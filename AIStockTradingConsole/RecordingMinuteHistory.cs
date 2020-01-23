@@ -10,7 +10,7 @@ namespace AIStockTradingConsole
 {
     public static class RecordingMinuteHistory
     {
-        public static DateTime updateAllTrackedSymbolsData(HttpClient client, string apiKey, string tradeDataPath, DataModels.AllWatchLists allWatchLists)
+        public static DateTime updateAllTrackedSymbolsData(ConsoleRunningParameters cParams, DataModels.AllWatchLists allWatchLists)
         {
 
             List<string> watchSymbols = new List<string>();
@@ -22,6 +22,15 @@ namespace AIStockTradingConsole
                         watchSymbols.Add(item.symbol);
                 }
             }
+
+            //add list
+            //List<string> fromFile = ReadStockTickerList.ReadStockTickerListByLineOfText($"{cParams.tradeDataPath}\\SandP500List.txt");
+            //foreach (string ticker in fromFile)
+            //{ 
+            //    if(!watchSymbols.Contains(ticker))
+            //        watchSymbols.Add(ticker);
+            //}
+
             Log.write($"{DateTime.Now.ToString()} Watching {watchSymbols.Count.ToString()} Symbols");
             foreach (string symbol in watchSymbols)
                 Console.Write($"{symbol.PadRight(10)}");
@@ -29,7 +38,7 @@ namespace AIStockTradingConsole
             Log.write($"{watchSymbols.Count.ToString()} valid symbols found within {allWatchLists.Lists.Count.ToString()} watch lists.");
 
             int countTrackedStockSymbols = 0;
-            List<string> TrackedStockSymbols = MarketHistory.ReadWriteJSONToDisk.getListOfStocksWithHistory(tradeDataPath);
+            List<string> TrackedStockSymbols = MarketHistory.ReadWriteJSONToDisk.getListOfStocksWithHistory(cParams.tradeDataPath);
             Log.write($"{DateTime.Now.ToString()} Tracked {TrackedStockSymbols.Count.ToString()} Symbols");
             foreach (string symbol in TrackedStockSymbols)
             {
@@ -40,8 +49,8 @@ namespace AIStockTradingConsole
 
             List<string> newSymbolsToTrack = watchSymbols.Where(s => !TrackedStockSymbols.Contains(s)).ToList();
 
-            StoreNewSymbolsByMinuteData(client, apiKey, tradeDataPath, newSymbolsToTrack);
-
+            StoreNewSymbolsByMinuteData(cParams.client, cParams.apiKey, cParams.tradeDataPath, newSymbolsToTrack);
+            UpdateTrackedSymbolsMyMinuteData(cParams.client, cParams.apiKey, cParams.tradeDataPath, TrackedStockSymbols);
             return DateTime.Now;
         }
 
