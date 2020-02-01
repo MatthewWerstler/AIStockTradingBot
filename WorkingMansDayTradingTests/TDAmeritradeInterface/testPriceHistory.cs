@@ -42,15 +42,15 @@ namespace WorkingMansDayTradingTests.TDAmeritradeInterface
         [TestMethod]
         public void testGettingStockPricesByTheMinute()
         {
-            var results = TD_API_Interface.API_Calls.PriceHistory.getPriceHistory(testingHttpClient.client, testingHttpClient.apiKey, "GAIN", "day", "1", "minute", "1");
+            var results = TD_API_Interface.API_Calls.PriceHistory.getPriceHistory(testingHttpClient.client, testingHttpClient.apiKey, "MSFT", "day", "10", "minute", "1");
             Assert.IsTrue(results.StatusCode == System.Net.HttpStatusCode.OK);
             var contents = results.Content.ReadAsStringAsync().Result;
             Assert.IsTrue(contents.Length > 3);
-            //seems to be a 10 day max by minute - which sucks
-            //results = TD_API_Interface.API_Calls.PriceHistory.getPriceHistory(testingHttpClient.client, testingHttpClient.apiKey, "GAIN", "month", "1", "minute", "1");//, "2019-12-01", "2019-12-11");
-            //contents = results.Content.ReadAsStringAsync().Result;
-            //Assert.IsTrue(results.StatusCode == System.Net.HttpStatusCode.OK);
-            //Assert.IsTrue(contents.Length > 3);
+            //I find it interesting the leaving out the day and 10 returns seems to return the results as putting it in.  The kind folks at TDA told me data is capped at 20 days.  However I can not seem to get more then 10 business days.
+            results = TD_API_Interface.API_Calls.PriceHistory.getPriceHistory(testingHttpClient.client, testingHttpClient.apiKey, "MSFT", "", "", "minute", "1");
+            contents = results.Content.ReadAsStringAsync().Result;
+            Assert.IsTrue(results.StatusCode == System.Net.HttpStatusCode.OK);
+            Assert.IsTrue(contents.Length > 3);
             dynamic data = JsonConvert.DeserializeObject(contents);
             dynamic candlesData = data.candles;
             string maxDate = ((IEnumerable)candlesData).Cast<dynamic>().Select(s => s.datetime).Max();

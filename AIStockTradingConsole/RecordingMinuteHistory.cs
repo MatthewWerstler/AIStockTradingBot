@@ -86,7 +86,7 @@ namespace AIStockTradingConsole
                 {
                     string newUpdatedFile = StockHistory.UpdateStockByMinuteHistoryFile(client, apiKey, symbol, tradeDataPath, true);
                     Log.write($"Symbol By Minute updated {newUpdatedFile}");
-                    Ultility.delay(250);
+                    Ultility.delay(100);
                 }
             }
         }
