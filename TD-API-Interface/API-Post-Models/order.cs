@@ -189,9 +189,9 @@ namespace TD_API_Interface.PostModels
 
         public Orderlegcollection orderLegCollection { get; set; }
 
-        public double activationPrice { get; set; } = "DO_NOT_REDUCE";
+        public double activationPrice { get; set; }
 
-        private string Specialinstruction;
+        private string Specialinstruction = "DO_NOT_REDUCE";
         /// <summary>specialInstruction = "ALL_OR_NONE", "DO_NOT_REDUCE", or "ALL_OR_NONE_DO_NOT_REDUCE"</summary>
         public string specialInstruction
         {
