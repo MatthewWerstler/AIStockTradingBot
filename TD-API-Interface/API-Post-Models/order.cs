@@ -5,7 +5,7 @@ using System.Text;
 namespace TD_API_Interface.PostModels
 {
     /// <summary>
-    /// Mapping the JSON object to class which TDA expects to create order
+    /// Mapping the JSON object to class which TDA expects to create order TDA samples Guide: https://developer.tdameritrade.com/content/place-order-samples
     /// </summary>
     public class order
     {
@@ -187,7 +187,7 @@ namespace TD_API_Interface.PostModels
          
         }
 
-        public Orderlegcollection orderLegCollection { get; set; }
+        public List<Orderlegcollection> orderLegCollection { get; set; }
 
         public double activationPrice { get; set; }
 
@@ -254,165 +254,87 @@ namespace TD_API_Interface.PostModels
 
         public Int64 accountId { get; set; }
 
-        public Orderactivitycollection orderActivityCollection { get; set; }
-        public Replacingordercollection replacingOrderCollection { get; set; }
-        public Childorderstrategies childOrderStrategies { get; set; }
+        public Orderlegcollection orderActivityCollection { get; set; }
+        public Orderlegcollection replacingOrderCollection { get; set; }
+        public Orderlegcollection childOrderStrategies { get; set; }
 
         public string statusDescription { get; set; }
     }
 
 
+    public class Orderlegcollection
+    {
+        private string Instruction;
+        /// <summary> instruction = "BUY", "SELL", "BUY_TO_COVER", "SELL_SHORT", "BUY_TO_OPEN", "BUY_TO_CLOSE", "SELL_TO_OPEN", "SELL_TO_CLOSE", or "EXCHANGE"</summary>
+        public string instruction
+        {
+            get => Instruction;
+            set
+            {
+                List<string> limitStrings = new List<string> { "BUY", "SELL", "BUY_TO_COVER", "SELL_SHORT",
+                    "BUY_TO_OPEN", "BUY_TO_CLOSE", "SELL_TO_OPEN", "SELL_TO_CLOSE", "EXCHANGE" };
+                if (limitStrings.Contains(value))
+                    Instruction = value;
+            }
+        }
 
-public class Orderlegcollection
-{
-    public string type { get; set; }
-    public Items items { get; set; }
-}
+        private string OrderLegType;
+        /// <summary>orderLegType = "EQUITY". "OPTION". "INDEX". "MUTUAL_FUND". "CASH_EQUIVALENT". "FIXED_INCOME". or "CURRENCY" </summary>
+        public string orderLegType
+        {
+            get => OrderLegType;
+            set
+            {
+                List<string> limitStrings = new List<string> { "EQUITY", "OPTION", "INDEX", "MUTUAL_FUND", 
+                    "CASH_EQUIVALENT", "FIXED_INCOME", "CURRENCY" };
+                if (limitStrings.Contains(value))
+                    OrderLegType = value;
+            }
+        }
 
-public class Items
-{
-    public string type { get; set; }
-    public Properties1 properties { get; set; }
-}
+        public int legId { get; set; } 
 
-public class Properties1
-{
-    public Orderlegtype orderLegType { get; set; }
-    public Legid legId { get; set; }
-    public Instrument instrument { get; set; }
-    public Instruction instruction { get; set; }
-    public Positioneffect positionEffect { get; set; }
-    public Quantity1 quantity { get; set; }
-    public Quantitytype quantityType { get; set; }
-}
+        private string Positioneffect;
+        /// <summary>
+        /// positionEffect = "OPENING", "CLOSING" or "AUTOMATIC"
+        /// </summary>
+        public string positionEffect
+        {
+            get => Positioneffect;
+            set
+            {
+                List<string> limitStrings = new List<string> { "OPENING", "CLOSING", "AUTOMATIC" };
+                if (limitStrings.Contains(value))
+                    Positioneffect = value;
+            }
+        }
+        public int quantity { get; set; }
 
-public class Orderlegtype
-{
-    public string type { get; set; }
-    public string[] _enum { get; set; }
-}
+        private string Quantitytype;
+        /// <summary>quantityType = "ALL_SHARES", "DOLLARS" or "SHARES"</summary>
+        public string quantityType
+        {
+            get => Quantitytype;
+            set
+            {
+                List<string> limitStrings = new List<string> { "ALL_SHARES", "DOLLARS", "SHARES" };
+                if (limitStrings.Contains(value))
+                    Quantitytype = value;
+            }
+        }
 
-public class Legid
-{
-    public string type { get; set; }
-    public string format { get; set; }
-}
-
-public class Instrument
-{
-    public string type { get; set; }
-    public string discriminator { get; set; }
-    public Properties2 properties { get; set; }
-}
-
-public class Properties2
-{
-    public Assettype assetType { get; set; }
-    public Cusip cusip { get; set; }
-    public Symbol symbol { get; set; }
-    public Description description { get; set; }
-}
-
-public class Assettype
-{
-    public string type { get; set; }
-    public string[] _enum { get; set; }
-}
-
-public class Cusip
-{
-    public string type { get; set; }
-}
-
-public class Symbol
-{
-    public string type { get; set; }
-}
-
-public class Description
-{
-    public string type { get; set; }
-}
-
-public class Instruction
-{
-    public string type { get; set; }
-    public string[] _enum { get; set; }
-}
-
-public class Positioneffect
-{
-    public string type { get; set; }
-    public string[] _enum { get; set; }
-}
-
-public class Quantity1
-{
-    public string type { get; set; }
-    public string format { get; set; }
-}
-
-public class Quantitytype
-{
-    public string type { get; set; }
-    public string[] _enum { get; set; }
-}
+        public Instrument instrument { get; set; } //"The type <Instrument> has the following subclasses [Option, MutualFund, CashEquivalent, Equity, FixedIncome] descriptions are listed below\"",
+    }
 
 
+    //---> TO DO Replace this with interfaces
+    public class Instrument
+    {
+        public string assetType { get; set; } //'EQUITY' or 'OPTION' or 'INDEX' or 'MUTUAL_FUND' or 'CASH_EQUIVALENT' or 'FIXED_INCOME' or 'CURRENCY'",
+        public string cusip { get; set; }
+        public string symbol { get; set; }
+        public string description { get; set; }
 
-
-
-public class Enteredtime
-{
-    public string type { get; set; }
-    public string format { get; set; }
-}
-
-
-public class Tag
-{
-    public string type { get; set; }
-}
-
-public class Accountid
-{
-    public string type { get; set; }
-    public string format { get; set; }
-}
-
-public class Orderactivitycollection
-{
-    public string type { get; set; }
-    public Items1 items { get; set; }
-}
-
-public class Items1
-{
-    public string type { get; set; }
-    public string discriminator { get; set; }
-    public Properties3 properties { get; set; }
-}
-
-public class Properties3
-{
-    public Activitytype activityType { get; set; }
-}
-
-public class Activitytype
-{
-    public string type { get; set; }
-    public string[] _enum { get; set; }
-}
-
-public class Replacingordercollection
-{
-    public string type { get; set; }
-}
-
-public class Childorderstrategies
-{
-    public string type { get; set; }
-}
-
-
+    }
+    
 }
