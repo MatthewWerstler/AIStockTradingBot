@@ -9,6 +9,11 @@ namespace TD_API_Interface.PostModels
     /// </summary>
     public class order
     {
+        public order()
+        {
+            orderLegCollection = new List<Orderlegcollection>();
+        }
+
         private string Session = "NORMAL";
         /// <summary> session = "NORMAL", "AM", "PM", "SEAMLESS" Default = "NORMAL"</summary>
         public string session
@@ -52,7 +57,7 @@ namespace TD_API_Interface.PostModels
         /// <summary> cancelTime "date": "string", "shortFormat": false </summary>
         public string cancelTime { get => Canceltime; set => Canceltime = value; }
 
-        private string Complexorderstrategytype = "NONE";
+        private string Complexorderstrategytype;// = "NONE";
         /// <summary>
         /// complexOrderStrategyType = "NONE", "COVERED",  "VERTICAL", "BACK_RATIO", "CALENDAR","DIAGONAL","STRADDLE",
         /// "STRANGLE","COLLAR_SYNTHETIC", "BUTTERFLY", "CONDOR", "IRON_CONDOR", "VERTICAL_ROLL", "COLLAR_WITH_STOCK",
@@ -74,9 +79,9 @@ namespace TD_API_Interface.PostModels
             }
         }
 
-        public double quantity { get; set; }
-        public double filledQuantity { get; set; }
-        public double remainingQuantity { get; set; }
+        public double? quantity { get; set; }
+        public double? filledQuantity { get; set; }
+        public double? remainingQuantity { get; set; }
 
         private string Requesteddestination;
         /// <summary>requestedDestination = "INET", "ECN_ARCA", "CBOE", "AMEX", "PHLX", "ISE", "BOX","NYSE", "NASDAQ", "BATS", 
@@ -98,7 +103,7 @@ namespace TD_API_Interface.PostModels
         /// <summary>"type": "string", "format": "date-time"</summary>
         public string releaseTime { get; set; }
 
-        public double stopPrice { get; set; }
+        public double? stopPrice { get; set; }
 
         private string Stoppricelinkbasis;
         /// <summary>
@@ -128,7 +133,7 @@ namespace TD_API_Interface.PostModels
             }
         }
 
-        public double stopPriceOffset { get; set; }
+        public double? stopPriceOffset { get; set; }
 
         private string Stoptype;
         /// <summary> stopType = "STANDARD", "BID", "ASK", "LAST", or "MARK"</summary>
@@ -169,7 +174,7 @@ namespace TD_API_Interface.PostModels
             }
         }
 
-        public double price { get; set; }
+        public double? price { get; set; }
 
         private string Taxlotmethod;
         /// <summary>
@@ -186,12 +191,10 @@ namespace TD_API_Interface.PostModels
             }
          
         }
+        
+        public double? activationPrice { get; set; }
 
-        public List<Orderlegcollection> orderLegCollection { get; set; }
-
-        public double activationPrice { get; set; }
-
-        private string Specialinstruction = "DO_NOT_REDUCE";
+        private string Specialinstruction;// = "DO_NOT_REDUCE";
         /// <summary>specialInstruction = "ALL_OR_NONE", "DO_NOT_REDUCE", or "ALL_OR_NONE_DO_NOT_REDUCE"</summary>
         public string specialInstruction
         {
@@ -215,11 +218,11 @@ namespace TD_API_Interface.PostModels
                     Orderstrategytype = value;
             }
         }
-        public Int64 orderId { get; set; }
+        public Int64? orderId { get; set; }
 
-        public bool cancelable { get; set; } = true;
+        public bool? cancelable { get; set; }// = true;
 
-        public bool editable { get; set; } = true;
+        public bool? editable { get; set; }// = true;
 
         private string Status;
         /// <summary>
@@ -252,8 +255,9 @@ namespace TD_API_Interface.PostModels
 
         public string tag { get; set; }
 
-        public Int64 accountId { get; set; }
+        public long accountId { get; set; }
 
+        public List<Orderlegcollection> orderLegCollection { get; set; } 
         public Orderlegcollection orderActivityCollection { get; set; }
         public Orderlegcollection replacingOrderCollection { get; set; }
         public Orderlegcollection childOrderStrategies { get; set; }
@@ -292,7 +296,7 @@ namespace TD_API_Interface.PostModels
             }
         }
 
-        public int legId { get; set; } 
+        public int? legId { get; set; } 
 
         private string Positioneffect;
         /// <summary>
@@ -323,7 +327,12 @@ namespace TD_API_Interface.PostModels
             }
         }
 
-        public Instrument instrument { get; set; } //"The type <Instrument> has the following subclasses [Option, MutualFund, CashEquivalent, Equity, FixedIncome] descriptions are listed below\"",
+        public Instrument instrument { get; set; }//"The type <Instrument> has the following subclasses [Option, MutualFund, CashEquivalent, Equity, FixedIncome] descriptions are listed below\"",
+    
+        public Orderlegcollection()
+        {
+            instrument = new Instrument();
+        }
     }
 
 

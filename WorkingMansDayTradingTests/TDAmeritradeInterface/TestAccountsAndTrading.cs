@@ -142,6 +142,48 @@ namespace WorkingMansDayTradingTests.TDAmeritradeInterface
             Assert.IsNotNull(contents);
         }
 
+        [TestMethod]
+        public void ShouldBeAbleToCreateAnOrderObjectForSimpleLimitStockPurchase()
+        {
+            TD_API_Interface.PostModels.order testOrder = new TD_API_Interface.PostModels.order();
+            testOrder.accountId = long.Parse(testingHttpClient.account01);
+            testOrder.orderStrategyType = "SINGLE";
+            TD_API_Interface.PostModels.Orderlegcollection testOrderlegcollection = new TD_API_Interface.PostModels.Orderlegcollection();
+            testOrderlegcollection.instruction = "BUY";
+            testOrderlegcollection.quantity = 1;
+            testOrderlegcollection.instrument.symbol = "MSFT";
+            testOrderlegcollection.instrument.assetType = "EQUITY";
+            testOrder.orderLegCollection.Add(testOrderlegcollection);
+            string dOrder = JsonConvert.SerializeObject(testOrder,
+                            Newtonsoft.Json.Formatting.Indented,
+                            new JsonSerializerSettings
+                            {
+                                NullValueHandling = NullValueHandling.Ignore
+                            });
+            Assert.IsTrue(testOrder.orderLegCollection[0].instruction == "BUY");
+            Assert.IsNotNull(dOrder);
+
+            //Sample buy order from https://developer.tdameritrade.com/content/place-order-samples Test to match
+            //{
+            //    "orderType": "LIMIT",
+            //  "session": "NORMAL",
+            //  "duration": "DAY",
+            //  "orderStrategyType": "SINGLE",  ****
+            //  "orderLegCollection": [
+            //    {
+            //      "instruction": "Buy",
+            //      "quantity": 15,
+            //      "instrument": {
+            //        "symbol": "XYZ",
+            //        "assetType": "EQUITY"
+            //      }
+            //}
+            //  ]
+            //}
+        }
+
+
+
         #endregion 
     }
 }
