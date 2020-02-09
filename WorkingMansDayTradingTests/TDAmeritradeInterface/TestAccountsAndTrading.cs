@@ -143,29 +143,11 @@ namespace WorkingMansDayTradingTests.TDAmeritradeInterface
         }
 
         [TestMethod]
-        public void ShouldBeAbleToCreateAnOrderObjectForSimpleLimitStockPurchase()
+        public void ShouldBeAbleToCreateAnOrderObjectForSimpleLimitStockPurchaseOrSale()
         {
-            TD_API_Interface.PostModels.order testOrder = new TD_API_Interface.PostModels.order();
-            testOrder.accountId = long.Parse(testingHttpClient.account01);
-            testOrder.orderStrategyType = "SINGLE";
-            TD_API_Interface.PostModels.Orderlegcollection testOrderlegcollection = new TD_API_Interface.PostModels.Orderlegcollection();
-            testOrderlegcollection.instruction = "BUY";
-            testOrderlegcollection.quantity = 1;
-            testOrderlegcollection.instrument.symbol = "MSFT";
-            testOrderlegcollection.instrument.assetType = "EQUITY";
-            testOrder.orderLegCollection.Add(testOrderlegcollection);
-            string dOrder = JsonConvert.SerializeObject(testOrder,
-                            Newtonsoft.Json.Formatting.Indented,
-                            new JsonSerializerSettings
-                            {
-                                NullValueHandling = NullValueHandling.Ignore
-                            });
-            Assert.IsTrue(testOrder.orderLegCollection[0].instruction == "BUY");
-            Assert.IsNotNull(dOrder);
-
             //Sample buy order from https://developer.tdameritrade.com/content/place-order-samples Test to match
             //{
-            //    "orderType": "LIMIT",
+            //    "orderType": "MARKET",  //I however generally don't do market orders 
             //  "session": "NORMAL",
             //  "duration": "DAY",
             //  "orderStrategyType": "SINGLE",  ****
@@ -176,10 +158,34 @@ namespace WorkingMansDayTradingTests.TDAmeritradeInterface
             //      "instrument": {
             //        "symbol": "XYZ",
             //        "assetType": "EQUITY"
-            //      }
+            //        }
+            //     }]
             //}
-            //  ]
-            //}
+            TD_API_Interface.PostModels.order testOrder = new TD_API_Interface.PostModels.order(true, testingHttpClient.account01, "MSFT", 1, 1);
+            Assert.IsTrue(testOrder.accountId.ToString() == testingHttpClient.account01);
+            Assert.IsTrue(testOrder.orderStrategyType == "SINGLE");
+            Assert.IsTrue(testOrder.orderLegCollection[0].instruction == "BUY");
+            Assert.IsTrue(testOrder.orderLegCollection[0].quantity == 1);
+            Assert.IsTrue(testOrder.orderLegCollection[0].instrument.symbol == "MSFT");
+            Assert.IsTrue(testOrder.orderLegCollection[0].instrument.assetType == "EQUITY");
+
+            string dOrder = JsonConvert.SerializeObject(testOrder,
+                            Newtonsoft.Json.Formatting.Indented,
+                            new JsonSerializerSettings
+                            {
+                                NullValueHandling = NullValueHandling.Ignore
+                            });
+            Assert.IsTrue(testOrder.orderLegCollection[0].instruction == "BUY");
+            Assert.IsNotNull(dOrder);
+
+            //Simple Sell order test
+            TD_API_Interface.PostModels.order testSellOrder = new TD_API_Interface.PostModels.order(false, testingHttpClient.account01, "MSFT", 1, 10000);
+            Assert.IsTrue(testSellOrder.orderStrategyType == "SINGLE");
+            Assert.IsTrue(testSellOrder.orderLegCollection[0].instruction == "SELL");
+            Assert.IsTrue(testSellOrder.orderLegCollection[0].quantity == 1);
+            Assert.IsTrue(testSellOrder.orderLegCollection[0].instrument.symbol == "MSFT");
+            Assert.IsTrue(testSellOrder.orderLegCollection[0].instrument.assetType == "EQUITY");
+
         }
 
 

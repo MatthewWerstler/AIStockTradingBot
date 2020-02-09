@@ -9,10 +9,6 @@ namespace TD_API_Interface.PostModels
     /// </summary>
     public class order
     {
-        public order()
-        {
-            orderLegCollection = new List<Orderlegcollection>();
-        }
 
         private string Session = "NORMAL";
         /// <summary> session = "NORMAL", "AM", "PM", "SEAMLESS" Default = "NORMAL"</summary>
@@ -260,9 +256,42 @@ namespace TD_API_Interface.PostModels
         public List<Orderlegcollection> orderLegCollection { get; set; } 
         public Orderlegcollection orderActivityCollection { get; set; }
         public Orderlegcollection replacingOrderCollection { get; set; }
-        public Orderlegcollection childOrderStrategies { get; set; }
+        public order childOrderStrategies { get; set; }
 
         public string statusDescription { get; set; }
+
+        public order()
+        {
+            orderLegCollection = new List<Orderlegcollection>();
+            childOrderStrategies = null;
+        }
+
+        /// <summary>
+        /// New simple buy/sell order
+        /// </summary>
+        /// <param name="isBuy">true = Buy & false = Sell</param>
+        /// <param name="accountID">Account Number</param>
+        /// <param name="Symbol">Stock Symbol Case Sensitive</param>
+        /// <param name="quantity">int number of shares</param>
+        /// <param name="limitBuyPrice">limit buy/sell price</param>
+        public order(bool isBuy, string accountID, string Symbol, int quantity, double limitBuyPrice) : this()
+        {
+            //simple stock order properties
+            accountId = long.Parse(accountID);
+            orderStrategyType = "SINGLE";
+            price = limitBuyPrice;
+            //order leg setup
+            TD_API_Interface.PostModels.Orderlegcollection leg = new TD_API_Interface.PostModels.Orderlegcollection();
+            if (isBuy)
+                leg.instruction = "BUY";
+            else
+                leg.instruction = "SELL";
+            leg.quantity = quantity;
+            leg.instrument.symbol = Symbol;
+            leg.instrument.assetType = "EQUITY";
+            //attach order leg collection to this order
+            orderLegCollection.Add(leg);
+        }
     }
 
 
