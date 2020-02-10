@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Net.Http;
+using TD_API_Interface.PostModels;
+using Newtonsoft.Json;
 
 namespace TD_API_Interface.API_Calls
 {
@@ -210,11 +212,23 @@ namespace TD_API_Interface.API_Calls
         }
 
 
-
-        //POST
-        //Place Order
-        //https://api.tdameritrade.com/v1/accounts/{accountId}/orders
-        //Place an order for a specific account.
+        /// <summary> POST Place Order (live active Order) - Place an order for a specific account.</summary>
+        /// <param name="client">HttpClient with oAuth</param>
+        /// <param name="accountId">Account to save order to</param>
+        /// <param name="saveOrder">populated order object</param>
+        /// <returns></returns>
+        public static HttpResponseMessage postCreateOrder(HttpClient client, string accountId, order saveOrder)
+        {
+            string url = $"https://api.tdameritrade.com/v1/accounts/{accountId}/orders";
+            string dOrder = JsonConvert.SerializeObject(saveOrder,
+                            Newtonsoft.Json.Formatting.None,
+                            new JsonSerializerSettings
+                            {
+                                NullValueHandling = NullValueHandling.Ignore
+                            });
+            HttpContent content = new StringContent(dOrder, Encoding.UTF8, "application/json");
+            return client.PostAsync(url, content).Result;
+        }
 
         //PUT
         //Replace Order
@@ -226,10 +240,24 @@ namespace TD_API_Interface.API_Calls
         //Method
         //Description
 
-        //POST
-        //Create Saved Order
-        //https://api.tdameritrade.com/v1/accounts/{accountId}/savedorders
-        //Save an order for a specific account.
+
+        /// <summary> POST Create Saved Order -Save an order for a specific account.</summary>
+        /// <param name="client">HttpClient with oAuth</param>
+        /// <param name="accountId">Account to save order to</param>
+        /// <param name="saveOrder">populated order object</param>
+        /// <returns></returns>
+        public static HttpResponseMessage postCreateSavedOrder(HttpClient client, string accountId, order saveOrder)
+        {
+            string url = $"https://api.tdameritrade.com/v1/accounts/{accountId}/savedorders";
+            string dOrder = JsonConvert.SerializeObject(saveOrder,
+                            Newtonsoft.Json.Formatting.None,
+                            new JsonSerializerSettings
+                            {
+                                NullValueHandling = NullValueHandling.Ignore
+                            });
+            HttpContent content = new StringContent(dOrder, Encoding.UTF8, "application/json");
+            return client.PostAsync(url, content).Result;
+        }
 
         //DELETE
         //Delete Saved Order

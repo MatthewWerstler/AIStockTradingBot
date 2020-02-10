@@ -251,7 +251,7 @@ namespace TD_API_Interface.PostModels
 
         public string tag { get; set; }
 
-        public long accountId { get; set; }
+        public long? accountId { get; set; } = null;
 
         public List<Orderlegcollection> orderLegCollection { get; set; } 
         public Orderlegcollection orderActivityCollection { get; set; }
@@ -274,10 +274,9 @@ namespace TD_API_Interface.PostModels
         /// <param name="Symbol">Stock Symbol Case Sensitive</param>
         /// <param name="quantity">int number of shares</param>
         /// <param name="limitBuyPrice">limit buy/sell price</param>
-        public order(bool isBuy, string accountID, string Symbol, int quantity, double limitBuyPrice) : this()
+        public order(bool isBuy, string Symbol, int quantity, double limitBuyPrice) : this()
         {
             //simple stock order properties
-            accountId = long.Parse(accountID);
             orderStrategyType = "SINGLE";
             price = limitBuyPrice;
             //order leg setup

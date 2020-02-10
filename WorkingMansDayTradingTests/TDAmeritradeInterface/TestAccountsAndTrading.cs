@@ -8,6 +8,7 @@ using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using System.Linq;
 using System.Collections;
+using TD_API_Interface.PostModels;
 
 namespace WorkingMansDayTradingTests.TDAmeritradeInterface
 {
@@ -85,6 +86,15 @@ namespace WorkingMansDayTradingTests.TDAmeritradeInterface
             Assert.IsNotNull(contents);
         }
 
+
+        [TestMethod]
+        public void ShouldBeAbleToCreateARealOrder()
+        {
+            order testOrder = new order(true, "MSFT", 1, 10);  //If my account executes a spare of Microsoft of a dollar it will be my lucky day
+            var results = TD_API_Interface.API_Calls.AccountsAndTrading.postCreateOrder(testingHttpClient.client, testingHttpClient.account01, testOrder);
+            var contents = results.Content.ReadAsStringAsync().Result;
+            Assert.IsTrue(results.StatusCode == System.Net.HttpStatusCode.OK);
+        }
         #endregion
 
         //sadly I do not understand the difference between and order and saved order - but that is why I write test while mapping a API
@@ -103,6 +113,14 @@ namespace WorkingMansDayTradingTests.TDAmeritradeInterface
             Assert.IsTrue(results.StatusCode == System.Net.HttpStatusCode.OK);
             contents = results.Content.ReadAsStringAsync().Result;
             Assert.IsNotNull(contents);
+        }
+
+        [TestMethod]
+        public void ShouldBeAbleToCreateASavedOrder()
+        {
+            order testOrder = new order(true, "MSFT", 1, 1);
+            var results = TD_API_Interface.API_Calls.AccountsAndTrading.postCreateSavedOrder(testingHttpClient.client, testingHttpClient.account01, testOrder);
+            Assert.IsTrue(results.StatusCode == System.Net.HttpStatusCode.OK);
         }
 
         #endregion
@@ -142,6 +160,10 @@ namespace WorkingMansDayTradingTests.TDAmeritradeInterface
             Assert.IsNotNull(contents);
         }
 
+        #endregion
+
+        #region "order object model"
+
         [TestMethod]
         public void ShouldBeAbleToCreateAnOrderObjectForSimpleLimitStockPurchaseOrSale()
         {
@@ -161,7 +183,7 @@ namespace WorkingMansDayTradingTests.TDAmeritradeInterface
             //        }
             //     }]
             //}
-            TD_API_Interface.PostModels.order testOrder = new TD_API_Interface.PostModels.order(true, testingHttpClient.account01, "MSFT", 1, 1);
+            TD_API_Interface.PostModels.order testOrder = new TD_API_Interface.PostModels.order(true, "MSFT", 1, 1);
             Assert.IsTrue(testOrder.accountId.ToString() == testingHttpClient.account01);
             Assert.IsTrue(testOrder.orderStrategyType == "SINGLE");
             Assert.IsTrue(testOrder.orderLegCollection[0].instruction == "BUY");
@@ -179,7 +201,7 @@ namespace WorkingMansDayTradingTests.TDAmeritradeInterface
             Assert.IsNotNull(dOrder);
 
             //Simple Sell order test
-            TD_API_Interface.PostModels.order testSellOrder = new TD_API_Interface.PostModels.order(false, testingHttpClient.account01, "MSFT", 1, 10000);
+            TD_API_Interface.PostModels.order testSellOrder = new TD_API_Interface.PostModels.order(false, "MSFT", 1, 10000);
             Assert.IsTrue(testSellOrder.orderStrategyType == "SINGLE");
             Assert.IsTrue(testSellOrder.orderLegCollection[0].instruction == "SELL");
             Assert.IsTrue(testSellOrder.orderLegCollection[0].quantity == 1);
@@ -189,7 +211,6 @@ namespace WorkingMansDayTradingTests.TDAmeritradeInterface
         }
 
 
-
-        #endregion 
+        #endregion
     }
 }
