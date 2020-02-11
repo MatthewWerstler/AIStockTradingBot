@@ -93,7 +93,7 @@ namespace WorkingMansDayTradingTests.TDAmeritradeInterface
             order testOrder = new order(true, "MSFT", 1, 10);  //If my account executes a spare of Microsoft of a dollar it will be my lucky day
             var results = TD_API_Interface.API_Calls.AccountsAndTrading.postCreateOrder(testingHttpClient.client, testingHttpClient.account01, testOrder);
             var contents = results.Content.ReadAsStringAsync().Result;
-            Assert.IsTrue(results.StatusCode == System.Net.HttpStatusCode.OK);
+            Assert.IsTrue(results.StatusCode == System.Net.HttpStatusCode.Created);
         }
         #endregion
 
