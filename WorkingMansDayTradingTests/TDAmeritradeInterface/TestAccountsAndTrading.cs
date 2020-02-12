@@ -29,6 +29,28 @@ namespace WorkingMansDayTradingTests.TDAmeritradeInterface
 
         #region order test(s)
         [TestMethod]
+        public void ShouldBeAbleToCancelAnOrder()
+        {
+            order testOrder = new order(true, "MSFT", 1, 10);  //If my account executes a spare of Microsoft of a dollar it will be my lucky day
+            var results = TD_API_Interface.API_Calls.AccountsAndTrading.postCreateOrder(testingHttpClient.client, testingHttpClient.account01, testOrder);
+            var contents = results.Content.ReadAsStringAsync().Result;
+            Assert.IsTrue(results.StatusCode == System.Net.HttpStatusCode.Created);
+
+            results = TD_API_Interface.API_Calls.AccountsAndTrading.getOrders(testingHttpClient.client, testingHttpClient.account01, DateTime.Now.AddSeconds(-10), DateTime.Now);
+            Assert.IsTrue(results.StatusCode == System.Net.HttpStatusCode.OK);
+            contents = results.Content.ReadAsStringAsync().Result;
+            dynamic ordersContent = JsonConvert.DeserializeObject(contents);
+            string orderID = ((IEnumerable)ordersContent).Cast<dynamic>().Where(q => q.quantity == 1.0 && q.price == 10.0).Select(s=>s.orderId).First();
+
+            results = TD_API_Interface.API_Calls.AccountsAndTrading.CancelOrder(testingHttpClient.client, testingHttpClient.account01, orderID);
+            Assert.IsTrue(results.StatusCode == System.Net.HttpStatusCode.OK);
+            contents = results.Content.ReadAsStringAsync().Result;
+            Assert.IsNotNull(contents);
+
+        }
+
+
+        [TestMethod]
         public void ShouldBeAbleToGetOrder()
         {
             var results = TD_API_Interface.API_Calls.AccountsAndTrading.getOrders(testingHttpClient.client, testingHttpClient.account01);

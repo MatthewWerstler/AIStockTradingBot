@@ -17,12 +17,18 @@ namespace TD_API_Interface.API_Calls
         //Method
         //Description
 
-        //DELETE
-        //Cancel Order
-        //https://api.tdameritrade.com/v1/accounts/{accountId}/orders/{orderId}
-        //Cancel a specific order for a specific account.
+        /// <summary>DELETE/Cancel Order = Cancel a specific order for a specific account.</summary>
+        /// <param name="client">httpClient with OAuth</param>
+        /// <param name="accountId">Account Number deleted order from</param>
+        /// <param name="orderId">Order Id to be deleted</param>
+        /// <returns>HttpResponesMessage for TDA API</returns>
+        public static HttpResponseMessage CancelOrder(HttpClient client, string accountId, string orderId)
+        {
+            string apiURL = $"https://api.tdameritrade.com/v1/accounts/{accountId}/orders/{orderId}";
+            return client.GetAsync(apiURL).Result;
+        }
 
-        
+
         /// <summary>
         /// Get Orders By Path - Orders for a specific account.
         /// </summary>
@@ -116,9 +122,7 @@ namespace TD_API_Interface.API_Calls
             string apiURL = $"https://api.tdameritrade.com/v1/accounts/{accountId}/orders?status={status}&fromEnteredTime={fromEnteredTime.ToString("yyyy-MM-dd")}&toEnteredTime={toEnteredTime.ToString("yyyy-MM-dd")}";
             return client.GetAsync(apiURL).Result;
         }
-
-
-
+               
         //GET
         //Get Orders By Query
         //https://api.tdameritrade.com/v1/orders
