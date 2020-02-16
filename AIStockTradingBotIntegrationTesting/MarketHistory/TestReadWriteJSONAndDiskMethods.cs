@@ -35,8 +35,8 @@ namespace WorkingMansDayTradingTests.MarketHistory
             Assert.IsTrue(Directory.Exists(testingHttpClient.path));
             ReadWriteJSONToDisk.testCreateDirectory($"{testingHttpClient.path}//Price_History");
             Assert.IsTrue(Directory.Exists($"{testingHttpClient.path}//Price_History"));
-            ReadWriteJSONToDisk.testCreateDirectory($"{testingHttpClient.path}//Price_History//TEST//ByMinute");
-            Assert.IsTrue(Directory.Exists($"{testingHttpClient.path}//Price_History//TEST//ByMinute"));
+            //ReadWriteJSONToDisk.testCreateDirectory($"{testingHttpClient.path}//Price_History//TEST//ByMinute");//creating a TEST directory that does not exist causes issue with the Trading Console program
+            //Assert.IsTrue(Directory.Exists($"{testingHttpClient.path}//Price_History//TEST//ByMinute"));
         }
 
         [TestMethod]

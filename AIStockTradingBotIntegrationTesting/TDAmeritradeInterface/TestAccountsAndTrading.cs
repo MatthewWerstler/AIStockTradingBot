@@ -205,8 +205,7 @@ namespace WorkingMansDayTradingTests.TDAmeritradeInterface
             //        }
             //     }]
             //}
-            TD_API_Interface.PostModels.order testOrder = new TD_API_Interface.PostModels.order(true, "MSFT", 1, 1);
-            Assert.IsTrue(testOrder.accountId.ToString() == testingHttpClient.account01);
+            TD_API_Interface.PostModels.order testOrder = new TD_API_Interface.PostModels.order(true, "MSFT", 1, 2);
             Assert.IsTrue(testOrder.orderStrategyType == "SINGLE");
             Assert.IsTrue(testOrder.orderLegCollection[0].instruction == "BUY");
             Assert.IsTrue(testOrder.orderLegCollection[0].quantity == 1);
