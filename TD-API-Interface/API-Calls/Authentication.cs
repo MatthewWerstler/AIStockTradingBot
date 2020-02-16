@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 namespace TD_API_Interface.API_Calls
 {
     /// <summary>
-    /// TD Ameritrade Authenication API call
+    /// TD Ameritrade Authentication API call
     /// https://developer.tdameritrade.com/authentication/apis
     /// All private, non-commercial use apps are currently limited to 120 requests per minute on all APIs except for Accounts & Trading
     /// </summary>
@@ -17,9 +17,9 @@ namespace TD_API_Interface.API_Calls
     {
         /// <summary>
         /// Refresh Token to receive a valid API token.
-        /// Documentation for authenitcation at TD Ameritrade  https://developer.tdameritrade.com/authentication/apis/post/token-0
+        /// Documentation for authentication at TD Ameritrade  https://developer.tdameritrade.com/authentication/apis/post/token-0
         /// </summary>
-        /// <param name="refreshToken">Refresh Token string from the orginal authorization_code process</param>
+        /// <param name="refreshToken">Refresh Token string from the original authorization_code process</param>
         /// <param name="client_id">client id parameter is also know as your apps Consumer Key "Consumer_Key" in Secrets Matt's file</param>
         public static string refreshToken(HttpClient client, string refreshToken, string client_id)
         {
@@ -27,7 +27,7 @@ namespace TD_API_Interface.API_Calls
             Name            Description
             grant_type      (required)  The grant type of the oAuth scheme.Possible values are authorization_code, refresh_token
             refresh_token   Required if using refresh token grant
-            access_type     Set to offline to receive a refresh token
+            access_type     Set to off line to receive a refresh token
             code            Required if trying to use authorization code grant
             client_id       (required) OAuth User ID of your application
             redirect_uri    Required if trying to use authorization code grant

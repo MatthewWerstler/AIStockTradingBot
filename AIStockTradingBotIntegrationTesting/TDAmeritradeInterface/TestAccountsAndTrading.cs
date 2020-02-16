@@ -8,6 +8,7 @@ using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using System.Linq;
 using System.Collections;
+using TD_API_Interface.PostModels;
 
 namespace WorkingMansDayTradingTests.TDAmeritradeInterface
 {
@@ -27,6 +28,28 @@ namespace WorkingMansDayTradingTests.TDAmeritradeInterface
         }
 
         #region order test(s)
+        [TestMethod]
+        public void ShouldBeAbleToCancelAnOrder()
+        {
+            order testOrder = new order(true, "MSFT", 1, 10);  //If my account executes a spare of Microsoft of a dollar it will be my lucky day
+            var results = TD_API_Interface.API_Calls.AccountsAndTrading.postCreateOrder(testingHttpClient.client, testingHttpClient.account01, testOrder);
+            var contents = results.Content.ReadAsStringAsync().Result;
+            Assert.IsTrue(results.StatusCode == System.Net.HttpStatusCode.Created);
+
+            results = TD_API_Interface.API_Calls.AccountsAndTrading.getOrders(testingHttpClient.client, testingHttpClient.account01, DateTime.Now.AddSeconds(-10), DateTime.Now);
+            Assert.IsTrue(results.StatusCode == System.Net.HttpStatusCode.OK);
+            contents = results.Content.ReadAsStringAsync().Result;
+            dynamic ordersContent = JsonConvert.DeserializeObject(contents);
+            string orderID = ((IEnumerable)ordersContent).Cast<dynamic>().Where(q => q.quantity == 1.0 && q.price == 10.0).Select(s=>s.orderId).First();
+
+            results = TD_API_Interface.API_Calls.AccountsAndTrading.CancelOrder(testingHttpClient.client, testingHttpClient.account01, orderID);
+            Assert.IsTrue(results.StatusCode == System.Net.HttpStatusCode.OK);
+            contents = results.Content.ReadAsStringAsync().Result;
+            Assert.IsNotNull(contents);
+
+        }
+
+
         [TestMethod]
         public void ShouldBeAbleToGetOrder()
         {
@@ -85,6 +108,15 @@ namespace WorkingMansDayTradingTests.TDAmeritradeInterface
             Assert.IsNotNull(contents);
         }
 
+
+        [TestMethod]
+        public void ShouldBeAbleToCreateARealOrder()
+        {
+            order testOrder = new order(true, "MSFT", 1, 10);  //If my account executes a spare of Microsoft of a dollar it will be my lucky day
+            var results = TD_API_Interface.API_Calls.AccountsAndTrading.postCreateOrder(testingHttpClient.client, testingHttpClient.account01, testOrder);
+            var contents = results.Content.ReadAsStringAsync().Result;
+            Assert.IsTrue(results.StatusCode == System.Net.HttpStatusCode.Created);
+        }
         #endregion
 
         //sadly I do not understand the difference between and order and saved order - but that is why I write test while mapping a API
@@ -103,6 +135,14 @@ namespace WorkingMansDayTradingTests.TDAmeritradeInterface
             Assert.IsTrue(results.StatusCode == System.Net.HttpStatusCode.OK);
             contents = results.Content.ReadAsStringAsync().Result;
             Assert.IsNotNull(contents);
+        }
+
+        [TestMethod]
+        public void ShouldBeAbleToCreateASavedOrder()
+        {
+            order testOrder = new order(true, "MSFT", 1, 1);
+            var results = TD_API_Interface.API_Calls.AccountsAndTrading.postCreateSavedOrder(testingHttpClient.client, testingHttpClient.account01, testOrder);
+            Assert.IsTrue(results.StatusCode == System.Net.HttpStatusCode.OK);
         }
 
         #endregion
@@ -142,6 +182,56 @@ namespace WorkingMansDayTradingTests.TDAmeritradeInterface
             Assert.IsNotNull(contents);
         }
 
-        #endregion 
+        #endregion
+
+        #region "order object model"
+
+        [TestMethod]
+        public void ShouldBeAbleToCreateAnOrderObjectForSimpleLimitStockPurchaseOrSale()
+        {
+            //Sample buy order from https://developer.tdameritrade.com/content/place-order-samples Test to match
+            //{
+            //    "orderType": "MARKET",  //I however generally don't do market orders 
+            //  "session": "NORMAL",
+            //  "duration": "DAY",
+            //  "orderStrategyType": "SINGLE",  ****
+            //  "orderLegCollection": [
+            //    {
+            //      "instruction": "Buy",
+            //      "quantity": 15,
+            //      "instrument": {
+            //        "symbol": "XYZ",
+            //        "assetType": "EQUITY"
+            //        }
+            //     }]
+            //}
+            TD_API_Interface.PostModels.order testOrder = new TD_API_Interface.PostModels.order(true, "MSFT", 1, 2);
+            Assert.IsTrue(testOrder.orderStrategyType == "SINGLE");
+            Assert.IsTrue(testOrder.orderLegCollection[0].instruction == "BUY");
+            Assert.IsTrue(testOrder.orderLegCollection[0].quantity == 1);
+            Assert.IsTrue(testOrder.orderLegCollection[0].instrument.symbol == "MSFT");
+            Assert.IsTrue(testOrder.orderLegCollection[0].instrument.assetType == "EQUITY");
+
+            string dOrder = JsonConvert.SerializeObject(testOrder,
+                            Newtonsoft.Json.Formatting.Indented,
+                            new JsonSerializerSettings
+                            {
+                                NullValueHandling = NullValueHandling.Ignore
+                            });
+            Assert.IsTrue(testOrder.orderLegCollection[0].instruction == "BUY");
+            Assert.IsNotNull(dOrder);
+
+            //Simple Sell order test
+            TD_API_Interface.PostModels.order testSellOrder = new TD_API_Interface.PostModels.order(false, "MSFT", 1, 10000);
+            Assert.IsTrue(testSellOrder.orderStrategyType == "SINGLE");
+            Assert.IsTrue(testSellOrder.orderLegCollection[0].instruction == "SELL");
+            Assert.IsTrue(testSellOrder.orderLegCollection[0].quantity == 1);
+            Assert.IsTrue(testSellOrder.orderLegCollection[0].instrument.symbol == "MSFT");
+            Assert.IsTrue(testSellOrder.orderLegCollection[0].instrument.assetType == "EQUITY");
+
+        }
+
+
+        #endregion
     }
 }
