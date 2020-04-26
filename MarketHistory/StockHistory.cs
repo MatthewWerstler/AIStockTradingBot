@@ -127,14 +127,21 @@ namespace MarketHistory
         /// These should alway be quotes for the same symbol at the same frequency
         /// </summary>
         /// <param name="firstQuoteList">symbol Quote List</param>
-        /// <param name="sencondQuoteList">symbol Quote List</param>
+        /// <param name="secondQuoteList">symbol Quote List</param>
         /// <returns></returns>
-        public static List<Quote> CombineQuoteLists(List<Quote> firstQuoteList, List<Quote> sencondQuoteList)
+        public static List<Quote> CombineQuoteLists(List<Quote> firstQuoteList, List<Quote> secondQuoteList)
         {
-            List<DataModels.Quote> returnQuoteList = firstQuoteList.Union(sencondQuoteList, new DataModels.CompareQuoteByDatetime())
-                                                                  .OrderBy(o => o.datetime)
-                                                                  .ToList();
-            return returnQuoteList;
+            if (secondQuoteList != null)
+            {
+                List<DataModels.Quote> returnQuoteList = firstQuoteList.Union(secondQuoteList, new DataModels.CompareQuoteByDatetime())
+                                                                      .OrderBy(o => o.datetime)
+                                                                      .ToList();
+                return returnQuoteList;
+            }
+            else
+            {
+                return firstQuoteList;
+            }
         }
 
         /// <summary>
