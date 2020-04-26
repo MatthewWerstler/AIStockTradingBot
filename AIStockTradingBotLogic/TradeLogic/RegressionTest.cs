@@ -27,7 +27,7 @@ namespace AIStockTradingBotLogic
         /// <param name="end">Test To Date</param>
         /// <param name="increment">TimeSpan increments between the from to date</param>
         /// <param name="testLogic">Trade Logic being Tested</param>
-        public RegressionTest(DateTime start, DateTime end, TimeSpan increment, iTradeLogic testLogic, bool MarketHoursOnly)
+        public RegressionTest(DateTime start, DateTime end, TimeSpan increment, ITradeLogic testLogic, bool MarketHoursOnly)
         {
             currentRegressionDateTime = start;
         }

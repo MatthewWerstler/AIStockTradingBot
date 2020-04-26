@@ -6,6 +6,7 @@ namespace AIStockTradingBotLogic.TradeLogic
 {
     public class DayTradeLogic : ITradeLogic
     {
+        public bool testMode { get; set; }
 
     }
 }

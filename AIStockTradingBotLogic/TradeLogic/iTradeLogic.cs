@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AIStockTradingBotLogic.TradeLogic
 {
-    interface ITradeLogic
+    public interface ITradeLogic
     {
         bool testMode { get; set; }
     }

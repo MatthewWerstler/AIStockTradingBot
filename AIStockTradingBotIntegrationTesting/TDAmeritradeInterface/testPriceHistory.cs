@@ -58,6 +58,15 @@ namespace WorkingMansDayTradingTests.TDAmeritradeInterface
         }
 
         [TestMethod]
+        public void testingGettingStockPricesBy15Minute()
+        {
+            var results = TD_API_Interface.API_Calls.PriceHistory.getPriceHistory(testingHttpClient.client, testingHttpClient.apiKey, "MSFT", "", "", "minute", "15");
+            Assert.IsTrue(results.StatusCode == System.Net.HttpStatusCode.OK);
+            var contents = results.Content.ReadAsStringAsync().Result;
+            Assert.IsTrue(contents.Length > 3);
+        }
+
+        [TestMethod]
         public void testGettingDailyStockValues()
         {
             var results = TD_API_Interface.API_Calls.PriceHistory.getPriceHistory(testingHttpClient.client, testingHttpClient.apiKey, "GAIN", "year", "20", "daily", "1");
