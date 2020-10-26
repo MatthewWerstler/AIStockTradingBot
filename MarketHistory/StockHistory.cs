@@ -70,7 +70,7 @@ namespace MarketHistory
             var contents = results.Content.ReadAsStringAsync().Result;
             dynamic data = JsonConvert.DeserializeObject(contents);
             dynamic candlesData = data.candles;
-            if(candlesData.Count > 0)
+            if(!candlesData.Equals(null))
             { 
                 //Check save location
                 string storageFolderPath = getSymbolsPriceHistoryPath(historyPath, symbol, "ByMinute");

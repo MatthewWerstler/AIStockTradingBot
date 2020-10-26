@@ -74,7 +74,20 @@ namespace MarketHistory
         {
             List<string> returnSymbols = new List<string>();
             foreach (string dir in Directory.GetDirectories($"{tradeDataPath}\\Price_History"))
-                returnSymbols.Add(new DirectoryInfo(dir).Name);
+            {
+                    returnSymbols.Add(new DirectoryInfo(dir).Name);
+            }
+            return returnSymbols;
+        }
+
+        public static List<string> getListOfStocksWithHistory(string tradeDataPath, List<string> ignoreTickers)
+        {
+            List<string> returnSymbols = new List<string>();
+            foreach (string dir in Directory.GetDirectories($"{tradeDataPath}\\Price_History"))
+            {
+                if (!ignoreTickers.Contains(dir))
+                    returnSymbols.Add(new DirectoryInfo(dir).Name);
+            }
             return returnSymbols;
         }
     }
