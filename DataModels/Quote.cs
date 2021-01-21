@@ -12,6 +12,11 @@ namespace DataModels
         public double close { get; set; }
         public Int64 volume { get; set; }
         public long datetime { get; set; }
+
+        public DateTime getDate()
+        {
+            return UtilityMethods.FromUnixTime(long.Parse(unixtime));
+        }
     }
 
     public class CompareQuoteByDatetime : IEqualityComparer<DataModels.Quote>
