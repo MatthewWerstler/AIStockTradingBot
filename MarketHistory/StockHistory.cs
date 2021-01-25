@@ -65,26 +65,33 @@ namespace MarketHistory
         /// <returns>The new combined file path</returns>
         public static string Gather10daysByTheMinute(HttpClient client, string apiKey, string symbol, string historyPath)
         {
-            //Get Data
-            var results = TD_API_Interface.API_Calls.PriceHistory.getPriceHistory(client, apiKey, symbol, "day", "10", "minute", "1");
-            var contents = results.Content.ReadAsStringAsync().Result;
-            dynamic data = JsonConvert.DeserializeObject(contents);
-            dynamic candlesData = data.candles;
-            if(!candlesData.Equals(null))
+            try
             { 
-                //Check save location
-                string storageFolderPath = getSymbolsPriceHistoryPath(historyPath, symbol, "ByMinute");
-                ReadWriteJSONToDisk.testCreateDirectory(storageFolderPath);
-                //Gather Start and End Date
-                string quoteFileName = getFileNameForPriceHistory(candlesData, true);
-                string saveFilePath = $"{storageFolderPath}\\{quoteFileName}";
-                //save File
-                ReadWriteJSONToDisk.writeDataAsJSON(saveFilePath, candlesData);
-                return saveFilePath;
+                //Get Data
+                var results = TD_API_Interface.API_Calls.PriceHistory.getPriceHistory(client, apiKey, symbol, "day", "10", "minute", "1");
+                var contents = results.Content.ReadAsStringAsync().Result;
+                dynamic data = JsonConvert.DeserializeObject(contents);
+                dynamic candlesData = data.candles;
+                if(!candlesData.Equals(null))
+                { 
+                    //Check save location
+                    string storageFolderPath = getSymbolsPriceHistoryPath(historyPath, symbol, "ByMinute");
+                    ReadWriteJSONToDisk.testCreateDirectory(storageFolderPath);
+                    //Gather Start and End Date
+                    string quoteFileName = getFileNameForPriceHistory(candlesData, true);
+                    string saveFilePath = $"{storageFolderPath}\\{quoteFileName}";
+                    //save File
+                    ReadWriteJSONToDisk.writeDataAsJSON(saveFilePath, candlesData);
+                    return saveFilePath;
+                }
+                else
+                {
+                    return "No data returned";
+                }
             }
-            else
+            finally
             {
-                return "No data returned";
+                //return to caller
             }
         }
 
@@ -179,14 +186,22 @@ namespace MarketHistory
         /// <returns>file name to save as</returns>
         public static string getFileNameForPriceHistory(dynamic candlesData, bool isByMinute)
         {
-            string minEnochDate = ((IEnumerable)candlesData).Cast<dynamic>().Select(s => s.datetime).First();
-            string maxEnochDate = ((IEnumerable)candlesData).Cast<dynamic>().Select(s => s.datetime).Last();
-            string strMinDate = UtilityMethods.EnochToyyyyMMddhhmmString(minEnochDate);
-            string strMaxDate = UtilityMethods.EnochToyyyyMMddhhmmString(maxEnochDate);
-            if(isByMinute)
-                return $"{strMinDate}-{strMaxDate}.json";
-            else
-                return $"{strMinDate.Substring(0, 8)}-{strMaxDate.Substring(0, 8)}.json";
+            try
+            { 
+                string minEnochDate = ((IEnumerable)candlesData).Cast<dynamic>().Select(s => s.datetime).First();
+                string maxEnochDate = ((IEnumerable)candlesData).Cast<dynamic>().Select(s => s.datetime).Last();
+                string strMinDate = UtilityMethods.EnochToyyyyMMddhhmmString(minEnochDate);
+                string strMaxDate = UtilityMethods.EnochToyyyyMMddhhmmString(maxEnochDate);
+                if(isByMinute)
+                    return $"{strMinDate}-{strMaxDate}.json";
+                else
+                    return $"{strMinDate.Substring(0, 8)}-{strMaxDate.Substring(0, 8)}.json";
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return null;
+            }
         }
 
         /// <summary>

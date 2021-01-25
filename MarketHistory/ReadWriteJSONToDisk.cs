@@ -18,10 +18,17 @@ namespace MarketHistory
 
         public static void writeDataAsJSON(string filePath, dynamic data)
         {
-            string jsonFileContent = JsonConvert.SerializeObject(data);
-            using (StreamWriter str = new StreamWriter(filePath))
+            try
             {
-                str.Write(jsonFileContent);
+                string jsonFileContent = JsonConvert.SerializeObject(data);
+                using (StreamWriter str = new StreamWriter(filePath))
+                {
+                    str.Write(jsonFileContent);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
             }
         }
 
