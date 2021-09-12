@@ -12,7 +12,7 @@ using System.Collections;
 namespace WorkingMansDayTradingTests.TDAmeritradeInterface
 {
     [TestClass]
-    public class testPriceHistory
+    public class testDividendHistory
     {
         WorkingMansDayTradingTests.TDAmeritradeInterface.HttpClientHelper testingHttpClient;
         [TestInitialize]
