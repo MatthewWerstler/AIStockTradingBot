@@ -28,14 +28,27 @@ I admit I hastefully ignored some best practice setting this up.  If contributor
   "refresh_token": "",
   "Consumer_Key": "",
   "TradingDataPath": "",
-  "Account01": ""
+  "Account01": "",
+  "Polygon_Default_Key": ""
 }
 ```
 
-##IRA Account Recommendation##
+## IRA Account Recommendation##
 
-Provided you are under the age of retirement I suggest creating a new IRA account if you intend to use the AITradingBot to excute orders.  I have done this myself (My Account details below).  My intent for the stock trading bot in not intended to purchase long term investments, that is easy enough to do without a bot.  Instead it's intended to do short term low profit trades, ideally smart enough to work around the SEC day trading rules.  Without hiding within an IRA every transaction would need to be evaluated during income tax time.  IRA transactions don't require tax preparation for each three cent transaction.
+Provided you are under the age of retirement I suggest creating a new IRA account if you intend to use the AITradingBot to execute orders.  I have done this myself (My Account details below).  My intent for the stock trading bot in not intended to purchase long term investments, that is easy enough to do without a bot.  Instead it's intended to do short term low profit trades, ideally smart enough to work around the SEC day trading rules.  Without hiding within an IRA every transaction would need to be evaluated during income tax time.  IRA transactions don't require tax preparation for each three cent transaction.
 
-##My Account##
+## New Direction
 
-My account is a new ROFL that only has $25 in it, and I am contributing $5 additional dollars per paycheck.  This process if completely experimental AI trading bots have consistantly failed to beat the market.  Those bots were created by stock brokers and data scientists.  I am neither: Anyone using this bot should understand they are gambling here and expect the bot will lose all money it has access to.  Yet I still dare to dream that there could be something here, and hope other software developers will join me and contribute to that dream.
+My original plan was to move faster and share my AI Stock Trading Bot core code.  Just would have allowed others to create their own trading logic and test it out.  
+
+However reality was a much different then I once dreamed.  My theory that all the logic would stay here in the core project wasn't fully realized as I created console, service, web, and mobile applications.   
+
+Learning more about cyber security was been a massive detour from this code base.  While the education gain is worth it's weight in gold, the time on that endeavor has taken away from my time expanding this core code base. 
+
+I believe in more minds make better code.  This being my first open source project I was jaded enough think other like minded individuals would join in and help contribute to this project.  However that never happened on the software side of this project.  I am still open to others joining in an leading a hand, but at this point a ton of code lives outside of this project.  
+
+As the paths to this dream project become clearer it's become apparent that changes are in store for the next year.  While the limited roots of this project will remain here telling the story of how I started.  The future landscape for the forseeable is to increase the the private codebase and reduce the publicly shared items.  
+
+This **New Direction** was written on Thanksgiving day 2021.  Sometime between then and the first part on 2022 the logic and integration testing portion of this code will be moved to a private repository.  Before some major updates occur.  Which will basically leave the api wrappers to provide a stepping stone for other developers out there.
+
+I am working on a new plan to share this project in different ways at some point in the future.
