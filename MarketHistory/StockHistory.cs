@@ -212,14 +212,20 @@ namespace MarketHistory
         /// <returns>file name to save as</returns>
         public static string getFileNameForPriceHistory(List<Quote> QuoteData, bool isByMinute)
         {
-            string minEnochDate = ((IEnumerable)QuoteData).Cast<dynamic>().Select(s => s.datetime).Min().ToString();
-            string maxEnochDate = ((IEnumerable)QuoteData).Cast<dynamic>().Select(s => s.datetime).Max().ToString();
-            string strMinDate = UtilityMethods.EnochToyyyyMMddhhmmString(minEnochDate);
-            string strMaxDate = UtilityMethods.EnochToyyyyMMddhhmmString(maxEnochDate);
-            if (isByMinute)
-                return $"{strMinDate}-{strMaxDate}.json";
-            else
-                return $"{strMinDate.Substring(0, 8)}-{strMaxDate.Substring(0, 8)}.json";
+            try { 
+                string minEnochDate = ((IEnumerable)QuoteData).Cast<dynamic>().Select(s => s.datetime).Min().ToString();
+                string maxEnochDate = ((IEnumerable)QuoteData).Cast<dynamic>().Select(s => s.datetime).Max().ToString();
+                string strMinDate = UtilityMethods.EnochToyyyyMMddhhmmString(minEnochDate);
+                string strMaxDate = UtilityMethods.EnochToyyyyMMddhhmmString(maxEnochDate);
+                if (isByMinute)
+                    return $"{strMinDate}-{strMaxDate}.json";
+                else
+                    return $"{strMinDate.Substring(0, 8)}-{strMaxDate.Substring(0, 8)}.json";
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

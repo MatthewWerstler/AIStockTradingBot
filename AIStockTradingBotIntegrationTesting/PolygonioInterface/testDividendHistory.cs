@@ -35,10 +35,13 @@ namespace WorkingMansDayTradingTests.PolygonioInterface
         [TestMethod]
         public void testGettingDividendHistory()
         {
-            var results = StockDividends.getStockDividendDates(testingHttpClient.client, testingHttpClient.apiKey, "MSFT");
+            var results = StockDividends.getStockDividendDates(testingHttpClient.client, testingHttpClient.apiKey, "EFC");
             Assert.IsTrue(results.StatusCode == System.Net.HttpStatusCode.OK);
             var contents = results.Content.ReadAsStringAsync().Result;
             Assert.IsTrue(contents.Length > 2);
+            dynamic data = JsonConvert.DeserializeObject(contents);
+            dynamic DividendData = data.results;
+            Assert.IsTrue(DividendData.Count > 0);
         }
 
     }
