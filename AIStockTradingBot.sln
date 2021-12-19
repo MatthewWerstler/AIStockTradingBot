@@ -7,13 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataModels", "DataModels\Da
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TD-API-Interface", "TD-API-Interface\TD-API-Interface.csproj", "{0E0BAA91-594F-437B-99C0-A22F4FDABDCD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarketHistory", "MarketHistory\MarketHistory.csproj", "{E795F5F1-6147-447D-A963-1868847D4D3B}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AIStockTradingBotIntegrationTesting", "AIStockTradingBotIntegrationTesting\AIStockTradingBotIntegrationTesting.csproj", "{03F84266-636C-4EC9-BD6B-B4C513664FB0}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AIStockTradingBotLogic", "AIStockTradingBotLogic\AIStockTradingBotLogic.csproj", "{00283484-D0CD-49F7-9D78-B90D163B6FB7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ploygon_Interface", "Ploygon_Interface\Ploygon_Interface.csproj", "{7B3EAB3A-F76B-4EE4-B661-8DFF97C0B9A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ploygon_Interface", "Ploygon_Interface\Ploygon_Interface.csproj", "{7B3EAB3A-F76B-4EE4-B661-8DFF97C0B9A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,18 +23,6 @@ Global
 		{0E0BAA91-594F-437B-99C0-A22F4FDABDCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E0BAA91-594F-437B-99C0-A22F4FDABDCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E0BAA91-594F-437B-99C0-A22F4FDABDCD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E795F5F1-6147-447D-A963-1868847D4D3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E795F5F1-6147-447D-A963-1868847D4D3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E795F5F1-6147-447D-A963-1868847D4D3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E795F5F1-6147-447D-A963-1868847D4D3B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{03F84266-636C-4EC9-BD6B-B4C513664FB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{03F84266-636C-4EC9-BD6B-B4C513664FB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{03F84266-636C-4EC9-BD6B-B4C513664FB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{03F84266-636C-4EC9-BD6B-B4C513664FB0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{00283484-D0CD-49F7-9D78-B90D163B6FB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{00283484-D0CD-49F7-9D78-B90D163B6FB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{00283484-D0CD-49F7-9D78-B90D163B6FB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{00283484-D0CD-49F7-9D78-B90D163B6FB7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7B3EAB3A-F76B-4EE4-B661-8DFF97C0B9A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7B3EAB3A-F76B-4EE4-B661-8DFF97C0B9A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B3EAB3A-F76B-4EE4-B661-8DFF97C0B9A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
