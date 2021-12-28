@@ -7,6 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataModels", "DataModels\Da
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TD-API-Interface", "TD-API-Interface\TD-API-Interface.csproj", "{0E0BAA91-594F-437B-99C0-A22F4FDABDCD}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ploygon_Interface", "Ploygon_Interface\Ploygon_Interface.csproj", "{7B3EAB3A-F76B-4EE4-B661-8DFF97C0B9A5}"
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +22,10 @@ Global
 		{0E0BAA91-594F-437B-99C0-A22F4FDABDCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E0BAA91-594F-437B-99C0-A22F4FDABDCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E0BAA91-594F-437B-99C0-A22F4FDABDCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B3EAB3A-F76B-4EE4-B661-8DFF97C0B9A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B3EAB3A-F76B-4EE4-B661-8DFF97C0B9A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B3EAB3A-F76B-4EE4-B661-8DFF97C0B9A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B3EAB3A-F76B-4EE4-B661-8DFF97C0B9A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
