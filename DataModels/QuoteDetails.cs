@@ -13,6 +13,9 @@ namespace DataModels
         //public DateTime? FirstQuote { get; set; }
         //public DateTime? LastQuote { get; set; }
         public string FolderPath { get; set; }
+        public string HistoryFolderPath { get; set; }
+        public List<QuoteFile> ActiveQuoteFiles { get; set; }
+        public List<QuoteFile> HistoricQuoteFiles { get; set; }
 
         /// <summary>
         /// Standard constructor stock ticker and quoting frequency should be known during initialization
