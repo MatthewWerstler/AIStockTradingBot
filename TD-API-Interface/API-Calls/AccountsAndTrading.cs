@@ -307,10 +307,12 @@ namespace TD_API_Interface.API_Calls
         /// <param name="accountId">Account Number as a string</param>
         /// <param name="fields">Example:fields=positions,orders</param>
         /// <returns>HttpResponseMessage return object</returns>
-        public static HttpResponseMessage getAccount(HttpClient client, string accountId, string fields)
+        public static HttpResponseMessage getAccount(HttpClient client, string accountId, string fields = null)
         {
-        string apiURL = $"https://api.tdameritrade.com/v1/accounts/{accountId}?fields={fields}";
-        return client.GetAsync(apiURL).Result;
+            string apiURL = $"https://api.tdameritrade.com/v1/accounts/{accountId}";
+            if (!string.IsNullOrWhiteSpace(fields))
+                apiURL += $"?fields={fields}";
+            return client.GetAsync(apiURL).Result;
         }
 
         /// <summary>
@@ -321,10 +323,12 @@ namespace TD_API_Interface.API_Calls
         /// <param name="client">httpClient with OAuth token</param>
         /// <param name="fields">Example:fields=positions,orders</param>
         /// <returns>HttpResponseMessage return object</returns>
-        public static HttpResponseMessage getAccounts(HttpClient client, string fields)
+        public static HttpResponseMessage getAccounts(HttpClient client, string fields = null)
         {
-        string apiURL = $"https://api.tdameritrade.com/v1/accounts?fields={fields}";
-        return client.GetAsync(apiURL).Result;
+            string apiURL = $"https://api.tdameritrade.com/v1/accounts";
+            if(!string.IsNullOrWhiteSpace(fields))
+                apiURL += $"?fields={fields}";
+            return client.GetAsync(apiURL).Result;
         }
 
         #endregion

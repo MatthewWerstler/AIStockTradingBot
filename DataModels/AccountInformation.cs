@@ -4,14 +4,14 @@ using System.Text;
 
 namespace DataModels
 {
-    public class Account
+    public class AccountInformation
     {
         private string _AccountId;
         public string AccountId { get { return _AccountId; } }
         public bool isActivelyTrading { get; set; } = false;
         public List<WatchList> WatchLists { get; set; }
 
-        public Account(string acctNumber)
+        public AccountInformation(string acctNumber)
         {
             _AccountId = acctNumber;
         }
