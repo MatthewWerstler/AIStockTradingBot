@@ -20,6 +20,8 @@ namespace DataModels
         public Initialbalances initialBalances { get; set; }
         public Currentbalances currentBalances { get; set; }
         public Projectedbalances projectedBalances { get; set; }
+        public List<OrderStrategies> orderStrategies { get; set; }
+        public List<Positions> prositions { get; set; }
     }
 
     public class Initialbalances
@@ -103,4 +105,59 @@ namespace DataModels
         public float stockBuyingPower { get; set; }
     }
 
+    public class Positions
+    {
+        public float shortQuantity { get; set; }
+        public float averagePrice { get; set; }
+        public float currentDayCost { get; set; }
+        public float currentDayProfitLoss { get; set; }
+        public float currentDayProfitLossPercentage { get; set; }
+        public float longQuantity { get; set; }
+        public float settledLongQuantity { get; set; }
+        public float settledShortQuantity { get; set; }
+        public Instrument instrument { get; set; }
+    }
+    
+    public class Instrument
+    {
+        public string assetType { get; set; }
+        public string cusip { get; set; }
+        public string symbol { get; set; }
+    }
+
+    public class OrderLegCollection
+    {
+        public string orderLegType { get; set; }
+        public int legId { get; set; }
+        public Instrument instrument { get; set; }
+        public string instruction { get; set; }
+        public string positionEffect { get; set; }
+        public float quantity { get; set; }
+    }
+
+    public class OrderStrategies
+    {
+        public string session { get; set; }
+        public string duration { get; set; }
+        public string orderType { get; set; }
+        public string cancelTime { get; set; }
+        public string complexOrderStrategyType { get; set; }
+        public float quantity { get; set; }
+        public float filledQuantity { get; set; }
+        public float remainingQuantity { get; set; }
+        public string requestedDestination { get; set; }
+        public string destinationLinkName { get; set; }
+        public float price { get; set; }
+        public List<OrderLegCollection> orderLegCollection { get; set; }
+        public string orderStrategyType { get; set; }
+        public string orderId { get; set; }
+        public bool cancelable { get; set; }
+        public bool editable { get; set; }
+        public string status { get; set; }
+        public string enteredTime { get; set; }
+        public string tag { get; set; }
+        public string accountId { get; set; }
+        public List<OrderStrategies> childOrderStrategies { get; set; }
+
+    }
 }
