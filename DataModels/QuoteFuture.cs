@@ -7,9 +7,8 @@ namespace DataModels
     /// <summary>
     /// Basic on TDA Get Quote Future Output found on https://developer.tdameritrade.com/quotes/apis/get/marketdata/%7Bsymbol%7D/quotes
     /// </summary>
-    public class QuoteFuture
+    public class QuoteFuture : QuoteBase
     {
-        public string symbol { get; set; }
         public double bidPriceInDouble { get; set; }
         public double askPriceInDouble { get; set; }
         public double lastPriceInDouble { get; set; }
@@ -18,13 +17,10 @@ namespace DataModels
         public double highPriceInDouble { get; set; }
         public double lowPriceInDouble { get; set; }
         public double closePriceInDouble { get; set; }
-        public string exchange { get; set; }
-        public string description { get; set; }
         public string lastId { get; set; }
         public double openPriceInDouble { get; set; }
         public double changeInDouble { get; set; }
         public int futurePercentChange { get; set; }
-        public string exchangeName { get; set; }
         public string securityStatus { get; set; }
         public int openInterest { get; set; }
         public int mark { get; set; }

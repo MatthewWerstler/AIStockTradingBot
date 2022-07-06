@@ -7,20 +7,17 @@ namespace DataModels
     /// <summary>
     /// Basic on TDA Get Quote Future Option Output found on https://developer.tdameritrade.com/quotes/apis/get/marketdata/%7Bsymbol%7D/quotes
     /// </summary>
-    public class QuoteFutureOption
+    public class QuoteFutureOption : QuoteBase
     {
-        public string symbol { get; set; }
         public double bidPriceInDouble { get; set; }
         public double askPriceInDouble { get; set; }
         public double lastPriceInDouble { get; set; }
         public double highPriceInDouble { get; set; }
         public double lowPriceInDouble { get; set; }
         public double closePriceInDouble { get; set; }
-        public string description { get; set; }
         public double openPriceInDouble { get; set; }
         public double netChangeInDouble { get; set; }
         public int openInterest { get; set; }
-        public string exchangeName { get; set; }
         public string securityStatus { get; set; }
         public int volatility { get; set; }
         public int moneyIntrinsicValueInDouble { get; set; }

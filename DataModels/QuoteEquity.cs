@@ -7,13 +7,8 @@ namespace DataModels
     /// <summary>
     /// Basic on TDA Get Quote Equity Output found on https://developer.tdameritrade.com/quotes/apis/get/marketdata/%7Bsymbol%7D/quotes
     /// </summary>
-    public class QuoteEquity
+    public class QuoteEquity : QuoteBase
     {
-        public string assetType { get; set; }
-        public string assetMainType { get; set; }
-        public string cusip { get; set; }
-        public string symbol { get; set; }
-        public string description { get; set; }
         public float bidPrice { get; set; }
         public int bidSize { get; set; }
         public string bidId { get; set; }
@@ -32,8 +27,6 @@ namespace DataModels
         public long quoteTimeInLong { get; set; }
         public long tradeTimeInLong { get; set; }
         public float mark { get; set; }
-        public string exchange { get; set; }
-        public string exchangeName { get; set; }
         public bool marginable { get; set; }
         public bool shortable { get; set; }
         public float volatility { get; set; }
@@ -53,8 +46,6 @@ namespace DataModels
         public double markChangeInDouble { get; set; }
         public double markPercentChangeInDouble { get; set; }
         public float regularMarketPercentChangeInDouble { get; set; }
-        public bool delayed { get; set; }
-        public bool realtimeEntitled { get; set; }
     }
 
 }
