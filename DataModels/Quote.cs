@@ -4,6 +4,9 @@ using System.Text;
 
 namespace DataModels
 {
+    /// <summary>
+    /// TDA Quotes by Minute, Day, etc
+    /// </summary>
     public class Quote
     {
         public double open { get; set; }
