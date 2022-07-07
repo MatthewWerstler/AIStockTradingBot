@@ -256,7 +256,7 @@ namespace TD_API_Interface.PostModels
         public List<Orderlegcollection> orderLegCollection { get; set; } 
         public Orderlegcollection orderActivityCollection { get; set; }
         public Orderlegcollection replacingOrderCollection { get; set; }
-        public order childOrderStrategies { get; set; }
+        public List<order> childOrderStrategies { get; set; }
 
         public string statusDescription { get; set; }
 
@@ -290,6 +290,48 @@ namespace TD_API_Interface.PostModels
             leg.instrument.assetType = "EQUITY";
             //attach order leg collection to this order
             orderLegCollection.Add(leg);
+        }
+        /// <summary>
+        /// Create Standard Buy/Sell Conditional order
+        /// </summary>
+        public order(string symbol, int buyQuantity, double limitBuyPrice, int sellQuantity, double limitSellPrice) : this()
+        {
+            orderType = "LIMIT";
+            session = "Normal";
+            price = limitBuyPrice;
+            duration = "DAY";
+            orderStrategyType = "TRIGGER";
+            //Buy order leg
+            TD_API_Interface.PostModels.Orderlegcollection leg = new TD_API_Interface.PostModels.Orderlegcollection();
+            leg.instruction = "BUY";
+            leg.quantity = buyQuantity;
+            leg.instrument.symbol = symbol;
+            leg.instrument.assetType = "EQUITY"; //Needs to be different for ETFs
+            //attach order leg collection to this order
+            orderLegCollection.Add(leg);
+
+            //Create the Triggered order
+            order childOrderStrategy = new order();
+            childOrderStrategy.orderType = "LIMIT";
+            childOrderStrategy.session = "Normal";
+            childOrderStrategy.price = limitSellPrice;
+            childOrderStrategy.duration = "DAY";
+            //DateTime threeMonthsFromToday = DateTime.Now.AddMonths(3);
+            //childOrderStrategy.cancelTime = $"{threeMonthsFromToday.Year.ToString()}-{threeMonthsFromToday.Month.ToString()}-{threeMonthsFromToday.Day.ToString()}";
+            childOrderStrategy.orderStrategyType = "SINGLE";
+            //childOrderStrategy.Complexorderstrategytype = "NONE";
+            
+            //Sell order leg
+            TD_API_Interface.PostModels.Orderlegcollection sellLeg = new TD_API_Interface.PostModels.Orderlegcollection();
+            sellLeg.instruction = "SELL";
+            sellLeg.quantity = sellQuantity;
+            sellLeg.instrument.symbol = symbol;
+            sellLeg.instrument.assetType = "EQUITY"; //Needs to be different for ETFs
+            childOrderStrategy.orderLegCollection.Add(sellLeg);
+
+            //Attach Child order
+            childOrderStrategies = new List<order>();
+            childOrderStrategies.Add(childOrderStrategy);
         }
     }
 
