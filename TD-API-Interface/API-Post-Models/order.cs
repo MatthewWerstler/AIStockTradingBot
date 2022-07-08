@@ -294,13 +294,21 @@ namespace TD_API_Interface.PostModels
         /// <summary>
         /// Create Standard Buy/Sell Conditional order
         /// </summary>
-        public order(string symbol, int buyQuantity, double limitBuyPrice, int sellQuantity, double limitSellPrice) : this()
+        public order(string symbol, int buyQuantity, double limitBuyPrice, int sellQuantity, double limitSellPrice, bool initialOrderDayOnly = true) : this()
         {
+            //DateTime threeMonthsFromToday = DateTime.Now.AddMonths(3);
             orderType = "LIMIT";
             session = "Normal";
-            price = limitBuyPrice;
-            duration = "DAY";
+            if(initialOrderDayOnly)
+            { 
+                duration = "DAY";
+            }
+            else
+            { 
+                duration = "GOOD_TILL_CANCEL";
+            }
             orderStrategyType = "TRIGGER";
+            price = limitBuyPrice;
             //Buy order leg
             TD_API_Interface.PostModels.Orderlegcollection leg = new TD_API_Interface.PostModels.Orderlegcollection();
             leg.instruction = "BUY";
@@ -314,13 +322,11 @@ namespace TD_API_Interface.PostModels
             order childOrderStrategy = new order();
             childOrderStrategy.orderType = "LIMIT";
             childOrderStrategy.session = "Normal";
-            childOrderStrategy.price = limitSellPrice;
-            childOrderStrategy.duration = "DAY";
-            //DateTime threeMonthsFromToday = DateTime.Now.AddMonths(3);
+            childOrderStrategy.duration = "GOOD_TILL_CANCEL";
             //childOrderStrategy.cancelTime = $"{threeMonthsFromToday.Year.ToString()}-{threeMonthsFromToday.Month.ToString()}-{threeMonthsFromToday.Day.ToString()}";
             childOrderStrategy.orderStrategyType = "SINGLE";
-            //childOrderStrategy.Complexorderstrategytype = "NONE";
-            
+            childOrderStrategy.price = limitSellPrice;
+            childOrderStrategy.Complexorderstrategytype = "NONE";
             //Sell order leg
             TD_API_Interface.PostModels.Orderlegcollection sellLeg = new TD_API_Interface.PostModels.Orderlegcollection();
             sellLeg.instruction = "SELL";
