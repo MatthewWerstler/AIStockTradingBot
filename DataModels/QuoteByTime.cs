@@ -7,7 +7,7 @@ namespace DataModels
     /// <summary>
     /// TDA Quotes by Minute, Day, etc
     /// </summary>
-    public class Quote
+    public class QuoteByTime
     {
         public double open { get; set; }
         public double high { get; set; }
@@ -17,14 +17,14 @@ namespace DataModels
         public long datetime { get; set; }
     }
 
-    public class CompareQuoteByDatetime : IEqualityComparer<DataModels.Quote>
+    public class CompareQuoteByDatetime : IEqualityComparer<DataModels.QuoteByTime>
     {
-        public bool Equals(DataModels.Quote x, DataModels.Quote y)
+        public bool Equals(DataModels.QuoteByTime x, DataModels.QuoteByTime y)
         {
             return x.datetime == y.datetime;
         }
 
-        public int GetHashCode(DataModels.Quote obj)
+        public int GetHashCode(DataModels.QuoteByTime obj)
         {
             return obj.datetime.GetHashCode();
         }

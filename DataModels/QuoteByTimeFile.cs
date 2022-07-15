@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DataModels
 {
-    public class QuoteFile
+    public class QuoteByTimeFile
     {
         public string path { get; set; }
         public string startDate { get; set; }
