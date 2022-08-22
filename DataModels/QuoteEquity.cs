@@ -24,8 +24,8 @@ namespace DataModels
         public float closePrice { get; set; }
         public float netChange { get; set; }
         public Int64 totalVolume { get; set; }
-        public Int64 quoteTimeInInt64 { get; set; }
-        public Int64 tradeTimeInInt64 { get; set; }
+        public Int64 quoteTimeInLong { get; set; }
+        public Int64 tradeTimeInlong { get; set; }
         public float mark { get; set; }
         public bool marginable { get; set; }
         public bool shortable { get; set; }
@@ -41,7 +41,7 @@ namespace DataModels
         public float regularMarketLastPrice { get; set; }
         public int regularMarketLastSize { get; set; }
         public double regularMarketNetChange { get; set; }
-        public Int64 regularMarketTradeTimeInInt64 { get; set; }
+        public Int64 regularMarketTradeTimeInLong { get; set; }
         public double netPercentChangeInDouble { get; set; }
         public double markChangeInDouble { get; set; }
         public double markPercentChangeInDouble { get; set; }
