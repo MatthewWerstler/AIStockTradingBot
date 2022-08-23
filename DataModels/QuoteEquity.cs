@@ -25,7 +25,7 @@ namespace DataModels
         public float netChange { get; set; }
         public Int64 totalVolume { get; set; }
         public Int64 quoteTimeInLong { get; set; }
-        public Int64 tradeTimeInlong { get; set; }
+        public Int64 tradeTimeInLong { get; set; }
         public float mark { get; set; }
         public bool marginable { get; set; }
         public bool shortable { get; set; }
