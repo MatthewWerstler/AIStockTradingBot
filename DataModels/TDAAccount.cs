@@ -123,6 +123,7 @@ namespace DataModels
         public string assetType { get; set; }
         public string cusip { get; set; }
         public string symbol { get; set; }
+        //public string description { get; set; }
     }
 
     public class OrderLegCollection
@@ -158,6 +159,26 @@ namespace DataModels
         public string tag { get; set; }
         public string accountId { get; set; }
         public List<OrderStrategies> childOrderStrategies { get; set; }
+        public List<OrderActivity> orderActivityCollection { get; set; }
 
+    }
+
+    public class OrderActivity
+    { 
+        public string activityType { get; set; }
+        public long activityId { get; set; }
+        public string executionType { get; set; }
+        public float quantity { get; set; }
+        public float orderRemainingQuantity { get; set; }
+        public List<ExecutionLeg> executionLegs { get; set; }
+    }
+
+    public class ExecutionLeg
+    { 
+        public int legId { get; set; }
+        public float quantity { get; set; }
+        public float mismarkedQuantity { get; set; }
+        public float price { get; set; }
+        public DateTime time { get; set; }
     }
 }

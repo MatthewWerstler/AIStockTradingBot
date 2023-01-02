@@ -267,7 +267,7 @@ namespace TD_API_Interface.PostModels
         }
 
         /// <summary>
-        /// New simple buy/sell order
+        /// Simple buy/sell order for order creation
         /// </summary>
         /// <param name="isBuy">true = Buy & false = Sell</param>
         /// <param name="accountID">Account Number</param>
