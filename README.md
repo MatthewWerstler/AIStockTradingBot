@@ -1,6 +1,12 @@
 # AIStockTradingBot
 
-## 2022 Update
+# 2023 Update
+
+The AISTB Investment Group Inc is here. 
+If you are a US resident and are willing to invest at least $250 look me up on Facebook or LinkedIn. I will send you a link to three thirty minute videos explaining how group works, and how I intend to invest. 
+As of Feb 1st, 2023 (one month in) we have 25 investors/members in the group. Since it's an S-Corp we are limited to 100 members. 
+
+# 2022 Update
 
 ### 7/13/2022
 
