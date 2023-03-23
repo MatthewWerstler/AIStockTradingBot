@@ -9,5 +9,6 @@ namespace DataModels.DTO
         public double high { get; set; }
         public double low { get; set; }
         public double close { get; set; }
+        public Int64 volume { get; set; }
     }
 }
