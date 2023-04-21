@@ -14,5 +14,10 @@ namespace Ploygon.API_Calls
             string apiURL = $"https://api.polygon.io/v2/reference/dividends/{StockTicker}?apiKey={APIKey}";
             return client.GetAsync(apiURL).Result;
         }
+        public static HttpResponseMessage getStockDividendDatesVersion3(HttpClient client, string APIKey, string StockTicker)
+        {
+            string apiURL = $"https://api.polygon.io/v3/reference/dividends?ticker={StockTicker}&apiKey={APIKey}";
+            return client.GetAsync(apiURL).Result;
+        }
     }
 }
